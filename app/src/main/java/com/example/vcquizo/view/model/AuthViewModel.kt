@@ -11,14 +11,18 @@ class AuthViewModel : ViewModel() {
     private val auth : FirebaseAuth = FirebaseAuth.getInstance()
 
     private val _authState = MutableLiveData<AuthState>()
-    val authState : LiveData<AuthState> = _authState
+    val authState: LiveData<AuthState> = _authState
 
     init {
+        auth.addAuthStateListener { firebaseAuth ->
+            checkAuthState()
+        }
         checkAuthState()
     }
 
-    fun checkAuthState() {
-        if (auth.currentUser != null) {
+    //convertida classe para private
+    private fun checkAuthState() {
+        if (auth.currentUser == null) {
             _authState.value = AuthState.Unauthenticated
 
         } else {

@@ -49,7 +49,7 @@ fun SignupPage(modifier: Modifier = Modifier, navController: NavController, auth
                 val errorMessage = (authState.value as AuthState.Error).message
                 Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
             }
-            else -> {}
+            else -> Unit
         }
     }
 

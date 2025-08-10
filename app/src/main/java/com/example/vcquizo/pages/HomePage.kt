@@ -16,7 +16,7 @@ import com.example.vcquizo.view.model.AuthState
 import com.example.vcquizo.view.model.AuthViewModel
 
 @Composable
-fun HomePage(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel) {
+fun HomePage(modifier: Modifier = Modifier, navController : NavController, authViewModel: AuthViewModel) {
 
     val authState = authViewModel.authState.observeAsState()
 
@@ -25,7 +25,7 @@ fun HomePage(modifier: Modifier = Modifier, navController: NavController, authVi
             is AuthState.Unauthenticated -> {
                 navController.navigate("login")
             }
-            else -> {}
+            else -> Unit
         }
     }
 
