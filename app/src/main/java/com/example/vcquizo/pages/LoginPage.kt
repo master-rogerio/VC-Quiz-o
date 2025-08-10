@@ -44,11 +44,9 @@ fun LoginPage(modifier: Modifier = Modifier, navController: NavController, authV
             is AuthState.Authenticated -> {
                 navController.navigate("home")
             }
-            is AuthState.Error -> {
-                val errorMessage = (authState.value as AuthState.Error).message
-                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-            }
-            else -> {}
+            is AuthState.Error -> Toast.makeText(context,
+                (authState.value as AuthState.Error).message, Toast.LENGTH_SHORT).show()
+            else -> Unit
         }
     }
 
@@ -86,7 +84,7 @@ fun LoginPage(modifier: Modifier = Modifier, navController: NavController, authV
         Button(onClick = {
             authViewModel.login(email, password)
         },
-            enabled = authState.value !is AuthState.Loading
+            enabled = authState.value != AuthState.Loading
             ) {
             Text(text = "Login")
         }

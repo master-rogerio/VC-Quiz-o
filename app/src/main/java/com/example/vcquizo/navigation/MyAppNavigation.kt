@@ -16,7 +16,7 @@ fun MyAppNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel)
 
     NavHost(
         navController = navController,
-        startDestination = "login",
+        startDestination = "home",
         builder = {
             composable("login") {
                 LoginPage(modifier, navController, authViewModel)
