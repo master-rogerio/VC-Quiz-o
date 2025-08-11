@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.example.vcquizo"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.vcquizo"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -64,10 +64,15 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.runtime.livedata)
+    debugImplementation("androidx.compose.ui:ui-tooling")
 
     // Firebase
     implementation(platform(libs.firebase.bom))
     implementation("com.google.firebase:firebase-auth-ktx")
+
+    //UI
+    implementation(libs.androidx.material.icons.extended)
+    implementation("androidx.compose.foundation:foundation:1.8.3")
 
     // Test
     testImplementation(libs.junit)

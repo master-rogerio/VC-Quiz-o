@@ -1,5 +1,5 @@
 [versions]
-agp = "8.1.2"  # Voltei para versão estável
+agp = "8.4.1"  # Voltei para versão estável
 kotlin = "1.9.22"  # Versão estável
 coreKtx = "1.12.0"
 lifecycleRuntimeKtx = "2.7.0"
@@ -7,6 +7,7 @@ activityCompose = "1.8.2"
 composeBom = "2024.02.01"  # Versão estável
 navigationCompose = "2.7.7"  # Versão comprovadamente estável
 firebaseBom = "32.7.2"  # Usando BOM para garantir compatibilidade
+materialIconsExtended = "1.6.8"
 
 [libraries]
 # Android Core
@@ -18,6 +19,7 @@ androidx-activity-compose = { group = "androidx.activity", name = "activity-comp
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
