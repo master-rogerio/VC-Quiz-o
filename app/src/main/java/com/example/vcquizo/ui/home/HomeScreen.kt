@@ -1,14 +1,13 @@
 package com.example.vcquizo.ui.home
 
-import android.R.attr.background
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -23,22 +22,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.vcquizo.ui.components.HistoryCard
 import com.example.vcquizo.ui.components.QuizCard
 import com.example.vcquizo.ui.theme.VCQuizoTheme
 import com.example.vcquizo.ui.util.MockData
 import kotlinx.coroutines.launch
-import java.nio.file.WatchEvent
+
+
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController) {
     val tabTitles = listOf("Quizzes", "Histórico")
     val pagerState = rememberPagerState(pageCount = {tabTitles.size})
     val coroutineScope = rememberCoroutineScope()
@@ -89,29 +89,44 @@ fun HomeScreen() {
                 )
                 {
                     items(MockData.availableQuizzes){ quiz ->
-                        QuizCard(quiz = quiz)
+                        Box(modifier = Modifier.clickable {
+                            navController.navigate("quiz/${quiz.id}")
+                        }) {
+                            QuizCard(quiz = quiz)
+                        }
                     }
                 }
                 1 -> LazyColumn(
                     contentPadding = PaddingValues(vertical = 16.dp)
                 ){
                     items(MockData.userHistory){ result ->
-                        HistoryCard(result = result)
-
-                    }
+                        Box(modifier = Modifier.clickable {
+                            // Navega para o resultado, passando dados de exemplo
+                            val accuracy = result.accuracy
+                            val score = result.score
+                            val time = "%02d:%02d".format(result.timeTakeMinutes, 0)
+                            navController.navigate("result/$score/$accuracy/$time")
+                        }) {
+                            HistoryCard(result = result)
+                        }
                 }
             }
-            
+
         }
+
+
     }
 
+}
 }
 
 @Preview
 @Composable
 fun HomeScreenPreview() {
     VCQuizoTheme {
-        HomeScreen()
+        HomeScreen(
+            navController = NavController(LocalContext.current)
+        )
     }
 
 }

@@ -2,12 +2,14 @@ package com.example.vcquizo.ui.util
 
 data class QuestionUI(
         val text: String,
-        val options: List<String>
+        val options: List<String>,
+        val correctOptionIndex: Int
         )
 
 data class QuizUI(
     val title: String,
-    val questions: List<QuestionUI>
+    val questions: List<QuestionUI>,
+    val timeLimitMinutes: Int
 )
 
 data class QuizInfo(
@@ -30,14 +32,17 @@ object MockData{
 
     val techQuiz = QuizUI(
         title = "Tecnologia",
+        timeLimitMinutes = 10,
         questions = listOf(
             QuestionUI(
                 text = "Qual framework o Jetpack Compose foi feito para substituir?",
-                options = listOf("XML Layouts", "Flutter", "React Native", "Ionic")
+                options = listOf("XML Layouts", "Flutter", "React Native", "Ionic"),
+                correctOptionIndex = 0
             ),
             QuestionUI(
                 text = "Qual linguagem de programação é a oficial para o desenvolvimento Android?",
-                options = listOf("Kotlin", "Java", "Dart", "Swift")
+                options = listOf("Kotlin", "Java", "Dart", "Swift"),
+                correctOptionIndex = 0
             ),
             QuestionUI(
                 text = "O que significa a sigla 'API'?",
@@ -46,7 +51,8 @@ object MockData{
                     "Advanced Program Interaction",
                     "Application Protocol Interface",
                     "Automated Programming Input"
-                )
+                ),
+                correctOptionIndex = 0
             )
         )
     )
@@ -68,17 +74,7 @@ object MockData{
         QuizResult("História do Brasil", "História", 120, 0.8, 18),
         QuizResult("Universo Marvel", "Cinema", 90, 0.9, 8)
     )
-//    val singleQuestion = QuestionUI(
-//        text = "Qual framework o Jetpack Compose foi feito para substituir?",
-//        options = listOf("XML Layouts", "Flutter", "React Native", "Ionic")
-//    )
 
-    data class UserScore(val name: String, val score: Int, val rank: Int)
 
-    val rankingList = listOf(
-        UserScore("Alice", 100, 1),
-        UserScore("Bob", 80, 2),
-        UserScore("Charlie", 60, 3),
-        UserScore("David", 40, 4),
-    )
+
 }
