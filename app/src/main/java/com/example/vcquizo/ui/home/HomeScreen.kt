@@ -6,14 +6,20 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Logout
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -32,13 +38,14 @@ import com.example.vcquizo.ui.components.HistoryCard
 import com.example.vcquizo.ui.components.QuizCard
 import com.example.vcquizo.ui.theme.VCQuizoTheme
 import com.example.vcquizo.ui.util.MockData
+import com.example.vcquizo.view.model.AuthViewModel
 import kotlinx.coroutines.launch
 
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel) {
     val tabTitles = listOf("Quizzes", "Histórico")
     val pagerState = rememberPagerState(pageCount = {tabTitles.size})
     val coroutineScope = rememberCoroutineScope()
@@ -51,13 +58,37 @@ fun HomeScreen(navController: NavController) {
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
         ){
-        Text(
-            text = "V.C. Quiz-O",
-            style = MaterialTheme.typography.headlineLarge,
-            color = MaterialTheme.colorScheme.primary,
-            fontWeight = FontWeight.ExtraBold,
-            textAlign = TextAlign.Center,
-        )
+        Row (modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ){
+            Text(
+                text = "V.C. Quiz-O",
+                style = MaterialTheme.typography.headlineLarge,
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.ExtraBold,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.weight(1f) // ocupa o espaço disponível e mantém centralização relativa
+            )
+
+            IconButton(onClick = {
+                authViewModel.signout()
+                navController.navigate("login") {
+                    popUpTo(navController.graph.startDestinationId) { inclusive = true }
+                    launchSingleTop = true
+                }
+            }) {
+                Icon(
+                    imageVector = Icons.Outlined.Logout,
+                    contentDescription = "Sair",
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
+        }
+
+
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -119,14 +150,16 @@ fun HomeScreen(navController: NavController) {
     }
 
 }
-}
+
 
 @Preview
 @Composable
 fun HomeScreenPreview() {
     VCQuizoTheme {
         HomeScreen(
-            navController = NavController(LocalContext.current)
+            modifier = Modifier,
+            navController = NavController(LocalContext.current),
+            authViewModel = AuthViewModel()
         )
     }
 
