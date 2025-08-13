@@ -57,7 +57,7 @@ class AuthViewModel : ViewModel() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    _authState.value = AuthState.Authenticated
+                    _authState.value = AuthState.SignedUp
                 } else {
                     _authState.value = AuthState.Error(task.exception?.message ?: "Ocorreu uma falha, tente novamente.")
                 }
@@ -69,11 +69,16 @@ class AuthViewModel : ViewModel() {
         _authState.value = AuthState.Unauthenticated
     }
 
+    fun resetState() {
+        _authState.value = AuthState.Unauthenticated
+    }
+
 }
 
 sealed class AuthState {
     object Authenticated : AuthState() // Estado de Autentificado
     object Unauthenticated : AuthState() // Estado de Nao Autentificado
     object Loading : AuthState() // Estado de Carregamento
+    object SignedUp : AuthState() // Estado de Registro
     data class Error(val message: String) : AuthState() // Estado de Erro
 }
