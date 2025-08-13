@@ -1,5 +1,7 @@
 package com.example.vcquizo.ui.util
 
+import androidx.compose.runtime.mutableStateListOf
+
 data class QuestionUI(
         val text: String,
         val options: List<String>,
@@ -69,7 +71,7 @@ object MockData{
         QuizInfo("q9", "Literatura Clássica", "Literatura", 10, 12)
     )
 
-    val userHistory = listOf(
+    val userHistory = mutableStateListOf(
         QuizResult("Fundamentos de Kotlin", "Tecnologia", 80, 0.8, 12),
         QuizResult("História do Brasil", "História", 120, 0.8, 18),
         QuizResult("Universo Marvel", "Cinema", 90, 0.9, 8)

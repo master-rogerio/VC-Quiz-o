@@ -98,6 +98,7 @@ fun HomeScreen(navController: NavController) {
                 }
                 1 -> LazyColumn(
                     contentPadding = PaddingValues(vertical = 16.dp)
+
                 ){
                     items(MockData.userHistory){ result ->
                         Box(modifier = Modifier.clickable {
@@ -105,7 +106,7 @@ fun HomeScreen(navController: NavController) {
                             val accuracy = result.accuracy
                             val score = result.score
                             val time = "%02d:%02d".format(result.timeTakeMinutes, 0)
-                            navController.navigate("result/$score/$accuracy/$time")
+                            navController.navigate("result/$score/$accuracy/$time/true")
                         }) {
                             HistoryCard(result = result)
                         }

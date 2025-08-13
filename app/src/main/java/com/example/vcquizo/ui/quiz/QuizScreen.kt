@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.vcquizo.ui.util.MockData
+import com.example.vcquizo.ui.util.QuizResult
 import kotlinx.coroutines.delay
 
 
@@ -222,9 +223,19 @@ fun QuizScreen(navController: NavController, quizId: String) {
                         val score = correctAnswersCount * 10
                         val accuracy = correctAnswersCount.toFloat() / quiz.questions.size
                         val timeTaken = totalTime - timeRemaining
+
+                        val newResult = QuizResult(
+                            quizTitle = quiz.title,
+                            category = quiz.title,
+                            score = score,
+                            accuracy = accuracy.toDouble(),
+                            timeTakeMinutes = timeTaken / 60
+                        )
+                        MockData.userHistory.add(0, newResult)
+
                         val timeString = "%02d:%02d".format(timeTaken / 60, timeTaken % 60)
-                        navController.navigate("result/$score/$accuracy/$timeString") {
-                            popUpTo("home") { inclusive = true }
+                        navController.navigate("result/$score/$accuracy/$timeString/false") {
+                            popUpTo("home")
                         }
                     }
                 },

@@ -53,7 +53,9 @@ fun ResultScreen(
         if (cameFromHistory) {
             Button(onClick = {
                 // FUTURAMENTE: Navegar para o quiz correspondente
-                // navController.navigate("quiz/id_do_quiz_do_historico")
+                navController.navigate("quiz/mock"){
+                    popUpTo("home")
+                }
             }) {
                 Text("Refazer Quiz")
             }
@@ -62,7 +64,7 @@ fun ResultScreen(
                 Text("Voltar ao Histórico")
             }
         } else {
-            Button(onClick = { navController.popBackStack("home", inclusive = false) }) {
+            Button(onClick = { navController.popBackStack() }) {
                 Text("Finalizar")
             }
         }
