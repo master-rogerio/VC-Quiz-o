@@ -6,7 +6,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,7 +16,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Logout
+import androidx.compose.material.icons.automirrored.outlined.Logout
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -57,36 +56,39 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
                 color = MaterialTheme.colorScheme.background
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
-        ){
-        Row (modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ){
+    ){
+
+        // Cabeçalho com ícone de logout à Direita e título centralizado
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp),
+            contentAlignment = Alignment.Center
+        ) {
             Text(
                 text = "V.C. Quiz-O",
                 style = MaterialTheme.typography.headlineLarge,
                 color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.ExtraBold,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.weight(1f) // ocupa o espaço disponível e mantém centralização relativa
             )
 
-            IconButton(onClick = {
-                authViewModel.signout()
-                navController.navigate("login") {
-                    popUpTo(navController.graph.startDestinationId) { inclusive = true }
-                    launchSingleTop = true
-                }
-            }) {
+            IconButton(
+                onClick = {
+                    authViewModel.signout()
+                    navController.navigate("login") {
+                        popUpTo(navController.graph.startDestinationId) { inclusive = true }
+                        launchSingleTop = true
+                    }
+                },
+                modifier = Modifier.align(Alignment.CenterEnd)
+            ) {
                 Icon(
-                    imageVector = Icons.Outlined.Logout,
+                    imageVector = Icons.AutoMirrored.Outlined.Logout,
                     contentDescription = "Sair",
                     tint = MaterialTheme.colorScheme.primary
                 )
             }
-        }
-
 
         }
 
@@ -107,7 +109,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
 
         }
         }
-        
+
         HorizontalPager(
             state = pagerState,
             modifier = Modifier
@@ -141,16 +143,16 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
                         }) {
                             HistoryCard(result = result)
                         }
+                    }
                 }
+
             }
+
 
         }
 
-
     }
-
 }
-
 
 @Preview
 @Composable
@@ -164,4 +166,3 @@ fun HomeScreenPreview() {
     }
 
 }
-
