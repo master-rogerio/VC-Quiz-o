@@ -1,4 +1,7 @@
-![Logo UFU](extras/logo-ufu.png)
+<div align="center">
+<img src="extras/logo-ufu.png" alt="UFU Logo" width="800"/>
+ </div>
+ 
 # Trabalho da Disciplina Programação para Dispositivos Móveis
  
 Quarto trabalho da discilpina Programação para Dispositivos Móveis do curso de Sistemas de Informação da Universidade Federal de Uberlândia
