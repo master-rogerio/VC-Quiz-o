@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Category
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Timer
@@ -23,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -214,12 +216,26 @@ fun RankingItem(user: RankingUser) {
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ){
+                Icon(
+                    imageVector = Icons.Default.Star,
+                    contentDescription = "Posição",
+                    modifier = Modifier.padding(16.dp),
+                    tint = Color.Yellow
+                )
                 Text(
                     text = "${user.rank}",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.width(30.dp)
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+                Text(
+                    text = user.name,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Normal,
+                    color = MaterialTheme.colorScheme.primary
+
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
