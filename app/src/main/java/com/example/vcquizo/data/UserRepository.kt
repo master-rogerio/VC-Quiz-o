@@ -5,9 +5,13 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.vcquizo.domain.model.User
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
+import com.google.firebase.firestore.PersistentCacheSettings
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 
@@ -23,6 +27,37 @@ class UserRepository(private val context: Context) {
         val EMAIL = stringPreferencesKey("email")
         val NAME = stringPreferencesKey("name")
     }
+
+    init {
+        // HABILITA A PERSISTÊNCIA OFFLINE
+        val settings = FirebaseFirestoreSettings.Builder()
+            .setLocalCacheSettings(
+                PersistentCacheSettings.newBuilder()
+                    .setSizeBytes(10L * 1024 * 1024) // Exemplo: 10 MB
+                    .build()
+            )
+            .build()
+
+        FirebaseFirestore.getInstance().firestoreSettings = settings
+    }
+
+    /**
+     * Procura um usuário no DataStore local pelo email.
+     * Usado para a lógica de login offline.
+     */
+    suspend fun getUserByEmailLocal(email: String): User? {
+        val prefs = context.dataStore.data.firstOrNull()
+        return if (prefs?.get(PrefsKeys.EMAIL)?.equals(email, ignoreCase = true) == true) {
+            User(
+                uid = prefs[PrefsKeys.UID] ?: "",
+                email = prefs[PrefsKeys.EMAIL] ?: "",
+                name = prefs[PrefsKeys.NAME]
+            )
+        } else {
+            null
+        }
+    }
+
 
     /**
      * Salva perfil localmente (DataStore)

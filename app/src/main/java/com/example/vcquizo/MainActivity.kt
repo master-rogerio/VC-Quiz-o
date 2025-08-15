@@ -22,9 +22,11 @@ class MainActivity : ComponentActivity() {
 
         // Criar instâncias do repositório e da factory
         val userRepository = UserRepository(applicationContext)
-        val viewModelFactory = ProfileViewModelFactory(userRepository)
+        val viewModelFactory = ProfileViewModelFactory(userRepository, application)
 
-        val authViewModel : AuthViewModel by viewModels {viewModelFactory}
+        // Usar a factory para obter a ViewModel
+        val authViewModel : AuthViewModel by viewModels { viewModelFactory }
+
         setContent {
             VCQuizoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
