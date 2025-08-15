@@ -30,27 +30,34 @@ class AuthViewModel (private val userRepository: UserRepository, application: Ap
     val authState: LiveData<AuthState> = _authState
 
     init {
-        checkAuthState()
+        // Este listener é a forma correta de observar o estado de autenticação.
+        // Ele será disparado na inicialização e sempre que o estado do usuário mudar.
+        auth.addAuthStateListener { firebaseAuth ->
+            checkAuthState(firebaseAuth)
+        }
     }
 
 
-    private fun checkAuthState() {
-        if (auth.currentUser == null) {
-            // Se não há usuário do Firebase, mas estamos offline,
-            // poderíamos verificar um usuário local para manter a sessão offline.
-            // Por enquanto, vamos manter simples.
+    private fun checkAuthState(firebaseAuth: FirebaseAuth) {
+        if (firebaseAuth.currentUser != null) {
+            // O Firebase confirma que o usuário está logado (online ou cache do token).
+            _authState.value = AuthState.Authenticated
+        } else {
+            // O Firebase diz que não há usuário.
+            // Verificamos se isso ocorre porque estamos offline e temos um usuário local.
             viewModelScope.launch {
-                if (!ConnectivityUtil.isOnline(context) && userRepository.userLocal.firstOrNull() != null) {
+                val isOffline = !ConnectivityUtil.isOnline(context)
+                val localUserExists = userRepository.userLocal.firstOrNull() != null
+
+                if (isOffline && localUserExists) {
+                    // Cenário: App iniciado offline, mas temos um usuário salvo.
+                    // Confiamos nos dados locais para permitir o acesso.
                     _authState.value = AuthState.Authenticated
-                } else if (auth.currentUser != null) {
-                    _authState.value = AuthState.Authenticated
-                }
-                else {
+                } else {
+                    // Cenário: Usuário genuinamente deslogado ou online sem sessão.
                     _authState.value = AuthState.Unauthenticated
                 }
             }
-        } else {
-            _authState.value = AuthState.Authenticated
         }
     }
 
@@ -70,6 +77,8 @@ class AuthViewModel (private val userRepository: UserRepository, application: Ap
                     if (task.isSuccessful) {
                         auth.currentUser?.uid?.let { uid ->
                             viewModelScope.launch {
+                                // Após login online, buscamos os dados mais recentes do Firestore
+                                // e salvamos localmente para o próximo acesso offline.
                                 val user = userRepository.getUserFromFirestore(uid)
                                 user?.let { userRepository.saveUserLocal(it) }
                                 _authState.value = AuthState.Authenticated
@@ -85,10 +94,9 @@ class AuthViewModel (private val userRepository: UserRepository, application: Ap
                 val localUser = userRepository.getUserByEmailLocal(email)
                 if (localUser != null) {
                     // Usuário encontrado localmente. Autenticação offline bem-sucedida.
-                    // Nota: Não estamos verificando a senha aqui.
                     _authState.value = AuthState.Authenticated
                 } else {
-                    // Nenhum usuário local encontrado.
+                    // Nenhum usuário local encontrado com este e-mail.
                     _authState.value = AuthState.Error("Sem conexão. Faça login online pelo menos uma vez.")
                 }
             }
