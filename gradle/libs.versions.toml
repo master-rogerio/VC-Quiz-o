@@ -1,18 +1,24 @@
 [versions]
 agp = "8.4.1"  # Voltei para versão estável
-kotlin = "1.9.22"  # Versão estável
+kotlin = "2.1.10"  # Versão estável "1.9.22"   "2.1.10"
 coreKtx = "1.12.0"
 lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.8.2"
 composeBom = "2024.02.01"  # Versão estável
 navigationCompose = "2.7.7"  # Versão comprovadamente estável
-firebaseBom = "32.7.2"  # Usando BOM para garantir compatibilidade
+firebaseBom = "32.7.0"  # Usando BOM para garantir compatibilidade
 materialIconsExtended = "1.6.8"
+roomCommonJvm = "2.7.2"
+roomCompiler = "2.7.2"
+roomRuntimeAndroid = "2.7.2"
+firebaseFirestoreKtx = "26.0.0"
+coroutines = "1.7.3"
 
 [libraries]
 # Android Core
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 
 # Compose
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
@@ -32,8 +38,20 @@ firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.r
 junit = { group = "junit", name = "junit", version = "4.13.2" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version = "1.1.5" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version = "3.5.1" }
+androidx-room-common-jvm = { group = "androidx.room", name = "room-common-jvm", version.ref = "roomCommonJvm" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
+androidx-room-runtime-android = { group = "androidx.room", name = "room-runtime-android", version.ref = "roomRuntimeAndroid" }
+firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 google-gms-google-services = { id = "com.google.gms.google-services", version = "4.4.1" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
+
+
+
+[bundles]
+firebase = ["firebase-firestore-ktx"]
+

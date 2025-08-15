@@ -27,15 +27,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+//import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+//import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.vcquizo.ui.components.HistoryCard
 import com.example.vcquizo.ui.components.QuizCard
-import com.example.vcquizo.ui.theme.VCQuizoTheme
+//import com.example.vcquizo.ui.theme.VCQuizoTheme
 import com.example.vcquizo.ui.util.MockData
 import com.example.vcquizo.view.model.AuthViewModel
 import kotlinx.coroutines.launch
@@ -153,7 +153,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
 
     }
 }
-
+/*
 @Preview
 @Composable
 fun HomeScreenPreview() {
@@ -162,7 +162,8 @@ fun HomeScreenPreview() {
             modifier = Modifier,
             navController = NavController(LocalContext.current),
             authViewModel = AuthViewModel()
+
         )
     }
 
-}
+}*/
