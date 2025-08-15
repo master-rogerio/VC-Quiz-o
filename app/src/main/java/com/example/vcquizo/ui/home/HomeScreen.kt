@@ -35,6 +35,8 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,23 +46,32 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.vcquizo.ui.components.HistoryCard
 import com.example.vcquizo.ui.components.QuizCard
 import com.example.vcquizo.ui.components.RankingItem
 import com.example.vcquizo.ui.theme.VCQuizoTheme
 import com.example.vcquizo.ui.util.MockData
+import com.example.vcquizo.ui.util.RankingUser
 import com.example.vcquizo.view.model.AuthViewModel
+import com.example.vcquizo.view.model.RankingViewModel
 import kotlinx.coroutines.launch
+
 
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel) {
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+    authViewModel: AuthViewModel,
+    rankingViewModel: RankingViewModel = viewModel()) {
     val tabTitles = listOf("Quizzes", "Histórico", "Ranking")
     val pagerState = rememberPagerState(pageCount = {tabTitles.size})
     val coroutineScope = rememberCoroutineScope()
+    val rankingList by rankingViewModel.rankingList.collectAsState()
 
     Column(
         modifier = Modifier
@@ -173,8 +184,22 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
                 }
                 2 -> LazyColumn(
                     contentPadding = PaddingValues(vertical = 16.dp)
-                ){items(MockData.rankingList) { user ->
-                    RankingItem(user = user)
+                ){items(rankingList.size) { index ->
+                    val user = rankingList[index]
+                    val displayName = if(!user.name.isNullOrBlank()) {
+                        user.name
+                    }else{
+                        user.email.substringBefore('@').replaceFirstChar {
+                            it.uppercase()
+                        }
+                    }
+
+                    RankingItem(user = RankingUser(
+                        rank = index + 1,
+                        name = displayName,
+                        score = user.score.toInt()
+                    )
+                    )
                 }
 
                 }
@@ -186,6 +211,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
 
     }
 }
+
 
 //@Preview
 //@Composable

@@ -5,9 +5,11 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.vcquizo.domain.model.User
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.PersistentCacheSettings
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.Flow
@@ -20,6 +22,7 @@ val Context.dataStore by preferencesDataStore(name = "user_prefs")
 
 class UserRepository(private val context: Context) {
     private val firestore = Firebase.firestore
+    private val usersCollection = firestore.collection("users")
 
     // Chaves para DataStore
     private object PrefsKeys {
@@ -28,18 +31,18 @@ class UserRepository(private val context: Context) {
         val NAME = stringPreferencesKey("name")
     }
 
-    init {
-        // HABILITA A PERSISTÊNCIA OFFLINE
-        val settings = FirebaseFirestoreSettings.Builder()
-            .setLocalCacheSettings(
-                PersistentCacheSettings.newBuilder()
-                    .setSizeBytes(10L * 1024 * 1024) // Exemplo: 10 MB
-                    .build()
-            )
-            .build()
-
-        FirebaseFirestore.getInstance().firestoreSettings = settings
-    }
+//    init {
+//        // HABILITA A PERSISTÊNCIA OFFLINE
+//        val settings = FirebaseFirestoreSettings.Builder()
+//            .setLocalCacheSettings(
+//                PersistentCacheSettings.newBuilder()
+//                    .setSizeBytes(10L * 1024 * 1024) // Exemplo: 10 MB
+//                    .build()
+//            )
+//            .build()
+//
+//        FirebaseFirestore.getInstance().firestoreSettings = settings
+//    }
 
     /**
      * Procura um usuário no DataStore local pelo email.
@@ -118,6 +121,29 @@ class UserRepository(private val context: Context) {
     suspend fun clearUserData() {
         context.dataStore.edit { prefs ->
             prefs.clear()
+        }
+    }
+
+    suspend fun updateUserScore(uid: String, scoreToAdd: Long){
+        try {
+            usersCollection.document(uid).update("score",
+                FieldValue.increment(scoreToAdd)).await()
+        } catch (e: Exception){
+            throw Exception("Erro ao atualizar o score: ${e.message}")
+        }
+    }
+
+    suspend fun getRanking() : List<User>{
+        return try {
+            val snapshot = usersCollection
+                .orderBy("score", Query
+                    .Direction.DESCENDING)
+                .limit(20)
+                .get()
+                .await()
+            snapshot.toObjects(User::class.java)
+        } catch (e: Exception){
+            emptyList()
         }
     }
 }

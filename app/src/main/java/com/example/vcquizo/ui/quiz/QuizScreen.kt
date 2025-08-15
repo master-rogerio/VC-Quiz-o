@@ -13,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,9 +21,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.vcquizo.data.UserRepository
 import com.example.vcquizo.ui.util.MockData
 import com.example.vcquizo.ui.util.QuizResult
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 // Um enum para controlar o estado da resposta (Certo, Errado ou Neutro)
@@ -33,6 +40,8 @@ enum class AnswerState { CORRECT, INCORRECT, NEUTRAL }
 fun QuizScreen(navController: NavController, quizId: String) {
     // FUTURAMENTE: Usar o quizId para buscar o quiz do banco de dados
     val quiz = MockData.techQuiz // Por enquanto, usamos dados fixos
+
+    val context = LocalContext.current
 
     var currentQuestionIndex by remember { mutableStateOf(0) }
     var selectedOptionIndex by remember { mutableStateOf<Int?>(null) }
@@ -223,6 +232,14 @@ fun QuizScreen(navController: NavController, quizId: String) {
                         val score = correctAnswersCount * 10
                         val accuracy = correctAnswersCount.toFloat() / quiz.questions.size
                         val timeTaken = totalTime - timeRemaining
+                        val user = Firebase.auth.currentUser
+
+                        if(user !=null){
+                            CoroutineScope(Dispatchers.IO).launch {
+                                val userRepository = UserRepository(context)
+                                userRepository.updateUserScore(user.uid, score.toLong())
+                            }
+                        }
 
                         val newResult = QuizResult(
                             quizTitle = quiz.title,
