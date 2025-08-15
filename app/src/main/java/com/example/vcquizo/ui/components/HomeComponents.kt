@@ -221,6 +221,13 @@ fun RankingItem(user: RankingUser) {
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.width(30.dp)
                 )
+                Text(
+                    text = user.name,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary
+
+                )
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
                     text = "${user.score} pts",
