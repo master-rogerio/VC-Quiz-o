@@ -30,6 +30,12 @@ data class QuizResult(
     val timeTakeMinutes: Int
 )
 
+data class RankingUser(
+    val rank: Int,
+    val name: String,
+    val score: Int
+)
+
 object MockData{
 
     val techQuiz = QuizUI(
@@ -77,6 +83,11 @@ object MockData{
         QuizResult("Universo Marvel", "Cinema", 90, 0.9, 8)
     )
 
+    val rankingList = mutableStateListOf(
+        RankingUser(1, "João", 90),
+        RankingUser(2, "Maria", 85),
+        RankingUser(3, "Pedro", 80)
+    )
 
 
 }

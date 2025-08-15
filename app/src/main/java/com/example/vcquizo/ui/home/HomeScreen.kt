@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.vcquizo.ui.components.HistoryCard
 import com.example.vcquizo.ui.components.QuizCard
+import com.example.vcquizo.ui.components.RankingItem
 import com.example.vcquizo.ui.theme.VCQuizoTheme
 import com.example.vcquizo.ui.util.MockData
 import com.example.vcquizo.view.model.AuthViewModel
@@ -57,14 +58,14 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel) {
-    val tabTitles = listOf("Quizzes", "Histórico")
+    val tabTitles = listOf("Quizzes", "Histórico", "Ranking")
     val pagerState = rememberPagerState(pageCount = {tabTitles.size})
     val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp).background(
+            .padding(top = 32.dp, start = 16.dp, end = 16.dp).background(
                 color = MaterialTheme.colorScheme.background
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -169,6 +170,13 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
                             HistoryCard(result = result)
                         }
                     }
+                }
+                2 -> LazyColumn(
+                    contentPadding = PaddingValues(vertical = 16.dp)
+                ){items(MockData.rankingList) { user ->
+                    RankingItem(user = user)
+                }
+
                 }
 
             }

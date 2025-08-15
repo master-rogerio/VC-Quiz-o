@@ -1,5 +1,6 @@
 package com.example.vcquizo.ui.components
 
+import android.graphics.Paint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.vcquizo.ui.util.QuizInfo
 import com.example.vcquizo.ui.util.QuizResult
+import com.example.vcquizo.ui.util.RankingUser
 import java.nio.file.WatchEvent
 
 @Composable
@@ -182,13 +184,51 @@ fun HistoryCard(result : QuizResult) {
                         fontWeight = FontWeight.Bold
                     )
                 }
-
-
             }
-
         }
-
     }
 
+}
+
+@Composable
+fun RankingItem(user: RankingUser) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 6.dp),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+            disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+
+    )
+    {
+        Row(
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ){
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Text(
+                    text = "${user.rank}",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.width(30.dp)
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+                Text(
+                    text = "${user.score} pts",
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+    }
 
 }
