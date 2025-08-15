@@ -48,7 +48,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.vcquizo.data.UserRepository
 import com.example.vcquizo.ui.components.HistoryCard
 import com.example.vcquizo.ui.components.QuizCard
 import com.example.vcquizo.ui.components.RankingItem
@@ -68,9 +67,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
     authViewModel: AuthViewModel,
-    rankingViewModel: RankingViewModel = viewModel(),
-    userRepository: UserRepository
-) {
+    rankingViewModel: RankingViewModel = viewModel()) {
     val tabTitles = listOf("Quizzes", "Histórico", "Ranking")
     val pagerState = rememberPagerState(pageCount = {tabTitles.size})
     val coroutineScope = rememberCoroutineScope()
