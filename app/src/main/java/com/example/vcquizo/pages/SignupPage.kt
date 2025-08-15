@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -17,12 +18,16 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -34,8 +39,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -47,6 +54,7 @@ import com.example.vcquizo.view.model.AuthState
 import com.example.vcquizo.view.model.AuthViewModel
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignupPage(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel) {
 
@@ -105,7 +113,11 @@ fun SignupPage(modifier: Modifier = Modifier, navController: NavController, auth
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
-        Text(text = "Crie a sua Conta", fontSize = 32.sp)
+        Text(text = "Crie a sua Conta",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.primary,
+            letterSpacing = 0.005.sp)
 
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
@@ -117,6 +129,14 @@ fun SignupPage(modifier: Modifier = Modifier, navController: NavController, auth
                 Text(text = "Nome")
             },
             maxLines = 1,
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+                unfocusedBorderColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                focusedTextColor = MaterialTheme.colorScheme.primary,
+
+                ),
+            shape = RoundedCornerShape(20.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii,
                 imeAction = ImeAction.Next
             ),
@@ -132,16 +152,27 @@ fun SignupPage(modifier: Modifier = Modifier, navController: NavController, auth
                 email = it.trim()
             },
             label = {
-                Text(text = "Email")
+                Text(text = "E-mail",
+
+                )
             },
             maxLines = 1,
             modifier = Modifier.focusRequester(emailFocus),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email,
-            imeAction = ImeAction.Next
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+                unfocusedBorderColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                focusedTextColor = MaterialTheme.colorScheme.primary,
+
+                ),
+            shape = RoundedCornerShape(20.dp),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Email,
+                imeAction = ImeAction.Next
             ),
             keyboardActions = KeyboardActions(
-            onNext = { passwordFocus.requestFocus()}
-        )
+                onNext = { passwordFocus.requestFocus()}
+            )
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -150,8 +181,16 @@ fun SignupPage(modifier: Modifier = Modifier, navController: NavController, auth
             onValueChange = {
                 if (it.length <= 20) password = it // impede mais de 20 caracteres
             },
-            label = { Text("Senha") },
-            maxLines = 1, // Limita em 1 linha
+            label = { Text("Senha",
+            ) },
+            maxLines = 1,
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainerLowest, // 50% transparente
+                unfocusedBorderColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                unfocusedTextColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+                focusedTextColor = MaterialTheme.colorScheme.primary
+            ),// Limita em 1 linha
             visualTransformation = if (passwordVisible)
                 VisualTransformation.None
             else
@@ -168,10 +207,11 @@ fun SignupPage(modifier: Modifier = Modifier, navController: NavController, auth
                     }
                 }
             ),
+            shape = RoundedCornerShape(20.dp),
             trailingIcon = {
                 val image = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                    Icon(imageVector = image, contentDescription = null)
+                    Icon(imageVector = image, contentDescription = null, tint = MaterialTheme.colorScheme.surfaceContainerHighest)
                 }
             },
             modifier = Modifier.focusRequester(passwordFocus),
@@ -198,7 +238,8 @@ fun SignupPage(modifier: Modifier = Modifier, navController: NavController, auth
                     modifier = Modifier.size(20.dp)
                 )
             } else {
-                Text(text = "Criar Conta")
+                Text(text = "Criar Conta",
+                    fontWeight = FontWeight.Light)
             }
         }
 
@@ -206,7 +247,9 @@ fun SignupPage(modifier: Modifier = Modifier, navController: NavController, auth
         TextButton(onClick = {
             navController.navigate("login")
         }) {
-            Text(text = "Ja possui uma conta?")
+            Text(text = "Já possui uma conta?",
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.Light)
         }
     }
 

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Category
 import androidx.compose.material.icons.outlined.Info
@@ -34,7 +35,15 @@ fun QuizCard(quiz: QuizInfo) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+            disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+        ),
+        shape = RoundedCornerShape(24.dp)
+
     ){
         Column(
             modifier = Modifier.padding(16.dp)
@@ -42,7 +51,8 @@ fun QuizCard(quiz: QuizInfo) {
             Text(
                 text = quiz.title,
                 style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.primary
             )
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -71,7 +81,8 @@ fun QuizCard(quiz: QuizInfo) {
                      Spacer(modifier = Modifier.width(4.dp))
                      Text(
                          text = "${quiz.questionCount} questões",
-                         style = MaterialTheme.typography.bodyMedium
+                         style = MaterialTheme.typography.bodyMedium,
+                         fontWeight = FontWeight.Normal
                      )
                  }
                     Row(
@@ -104,8 +115,12 @@ fun HistoryCard(result : QuizResult) {
             .fillMaxWidth()
             .padding(vertical = 8.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
-        )
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+            disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+        ),
+        shape = RoundedCornerShape(24.dp)
     ){
         Column(
             modifier = Modifier.padding(16.dp)

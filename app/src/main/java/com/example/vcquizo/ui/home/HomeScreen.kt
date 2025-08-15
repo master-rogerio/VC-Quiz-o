@@ -3,20 +3,31 @@ package com.example.vcquizo.ui.home
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Logout
+import androidx.compose.material.icons.filled.Lightbulb
+import androidx.compose.material.icons.filled.LightbulbCircle
+import androidx.compose.material.icons.outlined.Lightbulb
+import androidx.compose.material.icons.rounded.Lightbulb
+import androidx.compose.material.icons.twotone.Lightbulb
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -27,15 +38,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-//import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-//import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.vcquizo.ui.components.HistoryCard
 import com.example.vcquizo.ui.components.QuizCard
-//import com.example.vcquizo.ui.theme.VCQuizoTheme
+import com.example.vcquizo.ui.theme.VCQuizoTheme
 import com.example.vcquizo.ui.util.MockData
 import com.example.vcquizo.view.model.AuthViewModel
 import kotlinx.coroutines.launch
@@ -56,22 +68,35 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
                 color = MaterialTheme.colorScheme.background
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Bottom
     ){
 
         // Cabeçalho com ícone de logout à Direita e título centralizado
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 8.dp),
-            contentAlignment = Alignment.Center
+                .padding(top = 32.dp),
+            contentAlignment = Alignment.Center,
+
         ) {
-            Text(
-                text = "V.C. Quiz-O",
-                style = MaterialTheme.typography.headlineLarge,
-                color = MaterialTheme.colorScheme.primary,
-                fontWeight = FontWeight.ExtraBold,
-                textAlign = TextAlign.Center,
-            )
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.Lightbulb,
+                    contentDescription = "Logo",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = modifier.size(32.dp).align(Alignment.CenterVertically)
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = "V.C. Quiz-O",
+                    style = MaterialTheme.typography.headlineLarge,
+                    color = MaterialTheme.colorScheme.primary,
+                    fontWeight = FontWeight.Black,
+                    textAlign = TextAlign.Center,
+                )
+            }
 
             IconButton(
                 onClick = {
@@ -153,17 +178,16 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
 
     }
 }
-/*
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    VCQuizoTheme {
-        HomeScreen(
-            modifier = Modifier,
-            navController = NavController(LocalContext.current),
-            authViewModel = AuthViewModel()
 
-        )
-    }
-
-}*/
+//@Preview
+//@Composable
+//fun HomeScreenPreview() {
+//    VCQuizoTheme {
+//        HomeScreen(
+//            modifier = Modifier,
+//            navController = NavController(LocalContext.current),
+//            authViewModel = AuthViewModel()
+//        )
+//    }
+//
+//}
