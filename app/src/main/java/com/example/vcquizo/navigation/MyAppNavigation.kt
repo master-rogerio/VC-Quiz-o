@@ -38,7 +38,7 @@ fun MyAppNavigation(modifier: Modifier, authViewModel: AuthViewModel, userReposi
         }
 
         composable("home") {
-            HomeScreen(navController = navController, authViewModel = authViewModel, userRepository = userRepository)
+            HomeScreen(navController = navController, authViewModel = authViewModel)
         }
 
 
