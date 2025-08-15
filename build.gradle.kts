@@ -5,3 +5,18 @@ plugins {
     //alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.google.gms.google.services) apply false
 }
+
+subprojects {
+    configurations.all {
+        resolutionStrategy {
+            force ("org.jetbrains:annotations:23.0.0")
+        }
+    }
+    // força também em processadores de anotação
+    configurations.matching { it.name.contains("kapt") || it.name.contains("annotationProcessor") }.all {
+        resolutionStrategy {
+            force ("org.jetbrains:annotations:23.0.0")
+        }
+    }
+}
+

@@ -50,6 +50,9 @@ import com.example.vcquizo.view.model.AuthViewModel
 @Composable
 fun SignupPage(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel) {
 
+    var name by remember {
+        mutableStateOf("")
+    }
     var email by remember {
         mutableStateOf("")
     }
@@ -60,6 +63,7 @@ fun SignupPage(modifier: Modifier = Modifier, navController: NavController, auth
         mutableStateOf(false)
     }
 
+    val emailFocus = remember { FocusRequester() }
     val passwordFocus = remember { FocusRequester() }
 
     val authState = authViewModel.authState.observeAsState()
@@ -105,6 +109,24 @@ fun SignupPage(modifier: Modifier = Modifier, navController: NavController, auth
 
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
+            value = name,
+            onValueChange = {
+                name = it.trim()
+            },
+            label = {
+                Text(text = "Nome")
+            },
+            maxLines = 1,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii,
+                imeAction = ImeAction.Next
+            ),
+            keyboardActions = KeyboardActions(
+                onNext = { emailFocus.requestFocus()}
+            )
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(
             value = email,
             onValueChange = {
                 email = it.trim()
@@ -113,6 +135,7 @@ fun SignupPage(modifier: Modifier = Modifier, navController: NavController, auth
                 Text(text = "Email")
             },
             maxLines = 1,
+            modifier = Modifier.focusRequester(emailFocus),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email,
             imeAction = ImeAction.Next
             ),
@@ -141,7 +164,7 @@ fun SignupPage(modifier: Modifier = Modifier, navController: NavController, auth
                     // mesmo comportamento do botão
                     if (isEmailValid && isPasswordValid && authState.value != AuthState.Loading) {
                         focusManager.clearFocus() // fecha o teclado
-                        authViewModel.signup(email, password) //Dispara a função de login
+                        authViewModel.signup(email, password, name) //Dispara a função de login
                     }
                 }
             ),
@@ -164,7 +187,7 @@ fun SignupPage(modifier: Modifier = Modifier, navController: NavController, auth
 
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = {
-            authViewModel.signup(email, password)
+            authViewModel.signup(email, password, name)
         },
             enabled = isEmailValid && isPasswordValid && authState.value != AuthState.Loading
         ) {
