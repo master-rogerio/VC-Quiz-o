@@ -10,6 +10,7 @@ data class QuestionUI(
 
 data class QuizUI(
     val title: String,
+    val category: String,
     val questions: List<QuestionUI>,
     val timeLimitMinutes: Int
 )
@@ -39,7 +40,8 @@ data class RankingUser(
 object MockData{
 
     val techQuiz = QuizUI(
-        title = "Tecnologia",
+        title = "Fundamentos de Kotlin",
+        category = "Tecnologia",
         timeLimitMinutes = 10,
         questions = listOf(
             QuestionUI(

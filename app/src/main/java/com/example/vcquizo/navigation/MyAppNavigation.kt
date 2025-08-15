@@ -7,6 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.vcquizo.data.UserRepository
+import com.example.vcquizo.domain.model.User
 import com.example.vcquizo.ui.home.HomeScreen
 import com.example.vcquizo.ui.quiz.QuizScreen
 import com.example.vcquizo.ui.result.ResultScreen
@@ -16,7 +18,7 @@ import com.example.vcquizo.pages.SignupPage
 import com.example.vcquizo.view.model.AuthViewModel
 
 @Composable
-fun MyAppNavigation(modifier: Modifier, authViewModel: AuthViewModel) { // O ViewModel será usado no futuro
+fun MyAppNavigation(modifier: Modifier, authViewModel: AuthViewModel, userRepository: UserRepository) { // O ViewModel será usado no futuro
     val navController = rememberNavController()
 
     // FUTURAMENTE: Trocar startDestination para "login" ou uma tela de "splash"
@@ -36,7 +38,7 @@ fun MyAppNavigation(modifier: Modifier, authViewModel: AuthViewModel) { // O Vie
         }
 
         composable("home") {
-            HomeScreen(navController = navController, authViewModel = authViewModel)
+            HomeScreen(navController = navController, authViewModel = authViewModel, userRepository = userRepository)
         }
 
 
