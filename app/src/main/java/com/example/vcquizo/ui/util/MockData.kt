@@ -28,7 +28,7 @@ data class QuizResult(
     val category: String,
     val score: Int,
     val accuracy: Double,
-    val timeTakeMinutes: Int
+    val timeTakenInSeconds: Int
 )
 
 data class RankingUser(
@@ -80,9 +80,9 @@ object MockData{
     )
 
     val userHistory = mutableStateListOf(
-        QuizResult("Fundamentos de Kotlin", "Tecnologia", 80, 0.8, 12),
-        QuizResult("História do Brasil", "História", 120, 0.8, 18),
-        QuizResult("Universo Marvel", "Cinema", 90, 0.9, 8)
+        QuizResult("Fundamentos de Kotlin", "Tecnologia", 80, 0.8, 60),
+        QuizResult("História do Brasil", "História", 120, 0.8, 600),
+        QuizResult("Universo Marvel", "Cinema", 90, 0.9, 300)
     )
 
     val rankingList = mutableStateListOf(

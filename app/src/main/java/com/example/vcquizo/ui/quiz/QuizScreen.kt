@@ -246,7 +246,7 @@ fun QuizScreen(navController: NavController, quizId: String) {
                             category = quiz.title,
                             score = score,
                             accuracy = accuracy.toDouble(),
-                            timeTakeMinutes = timeTaken / 60
+                            timeTakenInSeconds = timeTaken
                         )
                         MockData.userHistory.add(0, newResult)
 
