@@ -1,11 +1,11 @@
 package com.example.vcquizo.view.model
 
-import User
-import UserRepository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.vcquizo.data.UserRepository
+import com.example.vcquizo.domain.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.auth.ktx.auth

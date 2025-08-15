@@ -1,5 +1,9 @@
+package com.example.vcquizo.view.model
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.vcquizo.data.UserRepository
+import com.example.vcquizo.domain.model.User
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,6 +24,9 @@ com.example.app/
  *
  * @param userRepo Repositório injetado para acesso aos dados
  */
+
+
+
 class ProfileViewModel(
     private val userRepository: UserRepository
 ) : ViewModel() {

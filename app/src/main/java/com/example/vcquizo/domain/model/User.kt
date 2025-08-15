@@ -1,3 +1,5 @@
+package com.example.vcquizo.domain.model
+
 /**
  * Modelo de dados do usuário para Firestore e armazenamento local
  * @property uid ID único do Firebase Auth
