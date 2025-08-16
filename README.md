@@ -58,7 +58,9 @@ graph TD
 ```
 
 <br>
+
 [Retornar ao 🧾Indice](#-%C3%ADndice)
+
 <br>
 
 ## 📖 Sobre o Aplicativo
@@ -67,7 +69,11 @@ Este é um aplicativo de quiz para Android, desenvolvido em Kotlin com Jetpack C
 O aplicativo foi projetado para funcionar tanto online quanto offline, utilizando o Firebase para serviços de backend e o DataStore para cache de dados locais.
 
 
-<br><br>
+<br>
+
+[Retornar ao 🧾Indice](#-%C3%ADndice)
+
+<br>
 
 ## ✅ Funcionalidades
 
@@ -79,7 +85,11 @@ O aplicativo foi projetado para funcionar tanto online quanto offline, utilizand
 - ✅ Ranking de Jogadores: Uma tela de ranking exibe a pontuação dos melhores jogadores.
 
 
-<br><br>
+<br>
+
+[Retornar ao 🧾Indice](#-%C3%ADndice)
+
+<br>
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -93,7 +103,11 @@ O aplicativo foi projetado para funcionar tanto online quanto offline, utilizand
 -   **[Coroutines](https://kotlinlang.org/docs/coroutines-overview.html):** Para gerenciar tarefas assíncronas.
 
 
-<br><br>
+<br>
+
+[Retornar ao 🧾Indice](#-%C3%ADndice)
+
+<br>
 
 ## 🚀 Como Executar o Projeto
 
@@ -117,12 +131,22 @@ Para compilar e executar este projeto localmente, siga os passos abaixo:
     * O Gradle irá sincronizar e baixar todas as dependências necessárias.
     * Execute o aplicativo em um emulador ou dispositivo físico.
 
-<br><br>
+<br>
+
+[Retornar ao 🧾Indice](#-%C3%ADndice)
+
+<br>
 
 ## 🔮 Melhorias Futuras
 * Implementar a edição do perfil do usuário (alterar nome, foto, etc.).
 * Adicionar diferentes tipos de perguntas (múltipla escolha, verdadeiro/falso, etc.).
 * Melhorar a interface com mais animações e transições.
+
+<br>
+
+[Retornar ao 🧾Indice](#-%C3%ADndice)
+
+<br>
   
 <!--
 Desenvolvido por:
