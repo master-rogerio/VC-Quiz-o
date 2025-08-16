@@ -18,14 +18,18 @@ Esse é o repositório para o quarto trabalho da discilpina Programação para D
 ![Compose](https://img.shields.io/badge/UI-Jetpack_Compose-4285F4?style=for-the-badge&logo=jetpackcompose)
 ![Firebase](https://img.shields.io/badge/Backend-Firebase-FFCA28?style=for-the-badge&logo=firebase)
 
+<br><br>
 
-## 🧾 Índice
-* [Diagrama de Arquitetura do Sistema](#-diagrama-de-arquitetura-do-sistema)
-* [Sobre o Aplicativo](#-sobre-o-aplicativo)
-* [Funcionalidades](#-funcionalidades)
-* [Tecnologias Utilizadas](#%EF%B8%8F-tecnologias-utilizadas)
+## 🧾 Índice 
 
+* [ 📊 Diagrama de Arquitetura do Sistema](#-diagrama-de-arquitetura-do-sistema)
+* [ 📖 Sobre o Aplicativo](#-sobre-o-aplicativo)
+* [ ✅ Funcionalidades](#-funcionalidades)
+* [ 🛠️ Tecnologias Utilizadas](#%EF%B8%8F-tecnologias-utilizadas)
+* [ 🚀 Como Executar o Projeto](#-como-executar-o-projeto)
+* [ 🔮 Melhorias Futuras](#-melhorias-futuras)
 
+<br><br>
 
 
 ## 📊 Diagrama de Arquitetura do Sistema
@@ -53,10 +57,15 @@ graph TD
     VM --> AUTH
 ```
 
+<br><br>
+
 ## 📖 Sobre o Aplicativo
 
 Este é um aplicativo de quiz para Android, desenvolvido em Kotlin com Jetpack Compose. O aplicativo permite que os usuários se cadastrem, façam login, respondam a quizzes de diferentes categorias, acompanhem seu histórico de desempenho e vejam um ranking de pontuações. 
 O aplicativo foi projetado para funcionar tanto online quanto offline, utilizando o Firebase para serviços de backend e o DataStore para cache de dados locais.
+
+
+<br><br>
 
 ## ✅ Funcionalidades
 
@@ -68,6 +77,7 @@ O aplicativo foi projetado para funcionar tanto online quanto offline, utilizand
 - ✅ Ranking de Jogadores: Uma tela de ranking exibe a pontuação dos melhores jogadores.
 
 
+<br><br>
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -81,26 +91,40 @@ O aplicativo foi projetado para funcionar tanto online quanto offline, utilizand
 -   **[Coroutines](https://kotlinlang.org/docs/coroutines-overview.html):** Para gerenciar tarefas assíncronas.
 
 
+<br><br>
 
+## 🚀 Como Executar o Projeto
 
-<!--
+Para compilar e executar este projeto localmente, siga os passos abaixo:
 
+1.  **Clone o Repositório**
+    ```bash
+    git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
+    ```
+
+2.  **Configuração do Firebase**
+    * Vá até o [console do Firebase](https://console.firebase.google.com/).
+    * Crie um novo projeto.
+    * Adicione um aplicativo Android ao seu projeto Firebase com o nome de pacote `com.example.vcquizo`.
+    * Siga os passos para baixar o arquivo `google-services.json`.
+    * Copie o arquivo `google-services.json` que você baixou e cole-o no diretório `app/` do projeto.
+    * No console do Firebase, habilite os serviços de **Authentication** (com o provedor "E-mail/senha") e **Firestore Database**.
+
+3.  **Abra no Android Studio**
+    * Abra o projeto no Android Studio.
+    * O Gradle irá sincronizar e baixar todas as dependências necessárias.
+    * Execute o aplicativo em um emulador ou dispositivo físico.
+
+<br><br>
+
+## 🔮 Melhorias Futuras
+* Implementar a edição do perfil do usuário (alterar nome, foto, etc.).
+* Adicionar diferentes tipos de perguntas (múltipla escolha, verdadeiro/falso, etc.).
+* Melhorar a interface com mais animações e transições.
   
-- [MongoDB](https://www.mongodb.com/)
-- Outros...
-
-## 📦 Instalação
-
-```bash
-# Clone o repositório
-git clone https://github.com/seunome/seuprojeto.git
-
-# Acesse a pasta
-cd seuprojeto
-
-# Instale as dependências
-npm install
-
-# Inicie o projeto
-npm start
+<!--
+Desenvolvido por:
+-Luiz Fellipe Silva Lima
+-Eduardo Antônio da Silva 
+-Rogério Anastácio
 -->
