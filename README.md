@@ -50,16 +50,7 @@ graph TD
         FS["📄 Cloud Firestore (Usuários e Ranking)"]
     end
 
- subgraph "Login (Firebase)"
-        Login["🔥 Firebase Authentication"]
-        Signup["🔥 Firebase Signup)"]
-    end
-
     UI --> NAV
-    NAV --> Login
-    Login --> Signup
-    Signup --> Login
-    Login --> NAV
     NAV --> VMs
     VMs --> REPO
     VMs --> RTDB
