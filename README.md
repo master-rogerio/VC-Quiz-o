@@ -96,7 +96,7 @@ O aplicativo foi projetado para funcionar tanto online quanto offline, utilizand
 -   **[Kotlin](https://kotlinlang.org/):** Linguagem de programação oficial para o desenvolvimento Android.
 -   **[Jetpack Compose](https://developer.android.com/jetpack/compose):** Kit de ferramentas moderno para a criação de interfaces de usuário nativas do Android.
 -   **[Firebase Authentication](https://firebase.google.com/docs/auth):** Para gerenciar a autenticação de usuários.
--   **[Firestore Database](https://firebase.google.com/docs/firestore):** Banco de dados NoSQL para armazenar os dados do usuário.
+-   **[Cloud Firestore](https://firebase.google.com/docs/firestore):** Banco de dados NoSQL da Firebase, escalável e baseado em documentos, usado para armazenar e sincronizar dados do usuário em tempo real, com suporte offline e integração com outros serviços do Firebase.
 -   **[Realtime Database](https://firebase.google.com/docs/database?hl=pt-br):** Solução de armazenamento de dados que permite salvar pares de chave-valor ou objetos tipados com buffers de protocolo.
 -   **[Android ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel):** Para gerenciar os dados da interface do usuário de maneira consciente do ciclo de vida.
 -   **[Android Navigation](https://developer.android.com/guide/navigation):** Para lidar com a navegação entre as telas do aplicativo.
