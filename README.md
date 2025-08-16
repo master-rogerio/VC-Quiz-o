@@ -39,22 +39,24 @@ graph TD
     subgraph "Android App (Cliente)"
         UI["📱 UI (Jetpack Compose)"]
         NAV["🗺️ Navigation"]
-        VM["🧠 ViewModels"]
+        VMs["🧠 ViewModels"]
         REPO["📦 UserRepository"]
         DS["💾 DataStore (Cache Local)"]
     end
 
     subgraph "Backend (Firebase)"
         AUTH["🔥 Firebase Authentication"]
-        FS["📄 Cloud Firestore"]
+        RTDB["🚀 Realtime Database (Quizzes)"]
+        FS["📄 Cloud Firestore (Usuários e Ranking)"]
     end
 
     UI --> NAV
-    NAV --> VM
-    VM --> REPO
+    NAV --> VMs
+    VMs --> REPO
+    VMs --> RTDB
     REPO --> DS
     REPO --> FS
-    VM --> AUTH
+    VMs --> AUTH
 ```
 
 <br>
@@ -65,8 +67,9 @@ graph TD
 
 ## 📖 Sobre o Aplicativo
 
-Este é um aplicativo de quiz para Android, desenvolvido em Kotlin com Jetpack Compose. O aplicativo permite que os usuários se cadastrem, façam login, respondam a quizzes de diferentes categorias, acompanhem seu histórico de desempenho e vejam um ranking de pontuações. 
-O aplicativo foi projetado para funcionar tanto online quanto offline, utilizando o Firebase para serviços de backend e o DataStore para cache de dados locais.
+Este é um aplicativo de quiz para Android, desenvolvido em Kotlin com Jetpack Compose. O aplicativo adota uma arquitetura de backend híbrida, utilizando o Firebase Realtime Database para armazenar e fornecer o conteúdo dos quizzes (perguntas, opções, etc.) e o Cloud Firestore para gerenciar os perfis dos usuários, suas pontuações e o ranking geral.
+
+Além disso, o aplicativo foi projetado para funcionar online e offline, utilizando o DataStore para cache de dados do usuário localmente.
 
 
 <br>
@@ -78,12 +81,26 @@ O aplicativo foi projetado para funcionar tanto online quanto offline, utilizand
 ## ✅ Funcionalidades
 
 - ✅ Autenticação de Usuário: Sistema completo de cadastro e login com e-mail e senha, utilizando o Firebase Authentication.
+- ✅ Quizzes Dinâmicos: As perguntas e os quizzes são carregados diretamente do Firebase Realtime Database.
+- ✅ Ranking de Pontuação: O aplicativo possui uma aba de ranking que exibe os jogadores com as maiores pontuações, com dados gerenciados pelo Cloud Firestore.
+- ✅ Experiência Offline: Permite login offline e armazena dados do usuário localmente, garantindo o acesso mesmo sem conexão à internet.
 - ✅ Navegação Intuitiva: Navegação entre as telas de login, cadastro, home, quiz e resultados.
-- ✅ Experiência Offline: O aplicativo permite o login offline e armazena os dados do usuário localmente, garantindo o acesso mesmo sem conexão com a internet.
 - ✅ Interface Moderna: A interface do usuário é construída com Jetpack Compose, proporcionando uma experiência de usuário moderna e reativa.
-- ✅ Histórico de Performance: Os usuários podem visualizar seu histórico de quizzes concluídos, incluindo pontuação, precisão e tempo gasto.
-- ✅ Ranking de Jogadores: Uma tela de ranking exibe a pontuação dos melhores jogadores.
+- ✅ Histórico de Performance: Os usuários podem visualizar seu histórico de quizzes concluídos.
 
+
+<br>
+
+[Retornar ao 🧾Indice](#-%C3%ADndice)
+
+<br>
+
+## 🎨 Design e Interface
+
+A interface do aplicativo foi desenvolvida com foco na simplicidade e usabilidade, seguindo os princípios do Material Design.
+* Layout Principal: A tela inicial (HomeScreen) é organizada com uma navegação por abas (TabRow) que separam as seções de "Quizzes", "Histórico" e "Ranking".
+* Paleta de Cores: O tema do aplicativo utiliza o Laranja (Orange) como cor primária, criando um visual vibrante e consistente em todos os componentes.
+* Iconografia: O ícone principal do aplicativo é uma lâmpada, simbolizando ideias e conhecimento, presente na tela de login e no cabeçalho da home.
 
 <br>
 
@@ -94,13 +111,16 @@ O aplicativo foi projetado para funcionar tanto online quanto offline, utilizand
 ## 🛠️ Tecnologias Utilizadas
 
 -   **[Kotlin](https://kotlinlang.org/):** Linguagem de programação oficial para o desenvolvimento Android.
--   **[Jetpack Compose](https://developer.android.com/jetpack/compose):** Kit de ferramentas moderno para a criação de interfaces de usuário nativas do Android.
--   **[Firebase Authentication](https://firebase.google.com/docs/auth):** Para gerenciar a autenticação de usuários.
--   **[Cloud Firestore](https://firebase.google.com/docs/firestore):** Banco de dados NoSQL da Firebase, escalável e baseado em documentos, usado para armazenar e sincronizar dados do usuário em tempo real, com suporte offline e integração com outros serviços do Firebase.
--   **[Realtime Database](https://firebase.google.com/docs/database?hl=pt-br):** Solução de armazenamento de dados que permite salvar pares de chave-valor ou objetos tipados com buffers de protocolo.
--   **[Android ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel):** Para gerenciar os dados da interface do usuário de maneira consciente do ciclo de vida.
 -   **[Android Navigation](https://developer.android.com/guide/navigation):** Para lidar com a navegação entre as telas do aplicativo.
+-   **[Android ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel):** Para gerenciar os dados da interface do usuário de maneira consciente do ciclo de vida.
 -   **[Coroutines](https://kotlinlang.org/docs/coroutines-overview.html):** Para gerenciar tarefas assíncronas.
+-   **[Cloud Firestore](https://firebase.google.com/docs/firestore):** Banco de dados NoSQL da Firebase, escalável e baseado em documentos, usado para armazenar e sincronizar dados do usuário em tempo real e o sistema de ranking.
+-   **[DataStore](https://developer.android.com/topic/libraries/architecture/datastore?hl=pt-br):** Solução de armazenamento local para o cache dos dados de usuário.
+-   **[Firebase Authentication](https://firebase.google.com/docs/auth):** Para gerenciar a autenticação de usuários.
+-   **[Firestore Realtime Database](https://firebase.google.com/docs/database?hl=pt-br):** Utilizado para armazenar e servir o conteúdo dos quizzes.
+-   **[Jetpack Compose](https://developer.android.com/jetpack/compose):** Kit de ferramentas moderno para a criação de interfaces de usuário nativas do Android.
+
+
 
 
 <br>
