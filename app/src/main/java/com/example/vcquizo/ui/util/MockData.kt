@@ -63,33 +63,32 @@ object MockData{
                     "Automated Programming Input"
                 ),
                 correctOptionIndex = 0
+            ),
+            QuestionUI(
+                text = "Qual palavra-chave declara uma variável imutável?",
+                options = listOf("var", "val", "const", "let"),
+                correctOptionIndex = 1
+            ),
+            QuestionUI(
+                text = "Qual o operador para checagem de nulo seguro?",
+                options = listOf("!!", "?.", "?:", "??"),
+                correctOptionIndex = 1
+            ),
+            QuestionUI(
+                text = "Qual o nome da função para imprimir algo no console?",
+                options = listOf("print()", "log()", "display()", "write()"),
+                correctOptionIndex = 0
             )
         )
     )
 
     val availableQuizzes = listOf(
         QuizInfo("q1","Fundamentos de Kotlin", "Tecnologia", 10, 15),
-        QuizInfo("q2", "História do Brasil", "História", 15, 20),
-        QuizInfo("q3", "Universo Marvel", "Cinema", 20, 10),
-        QuizInfo("q4", "Biologia Celular", "Ciência", 12, 15),
-        QuizInfo("q5", "Matemática Básica", "Matemática", 8, 10),
-        QuizInfo("q6", "Arte Contemporânea", "Arte", 18, 25),
-        QuizInfo("q7", "Física Quantica", "Ciência", 14, 18),
-        QuizInfo("q8", "Geografia Geodésica", "Geografia", 16, 22),
-        QuizInfo("q9", "Literatura Clássica", "Literatura", 10, 12)
     )
 
-    val userHistory = mutableStateListOf(
-        QuizResult("Fundamentos de Kotlin", "Tecnologia", 80, 0.8, 60),
-        QuizResult("História do Brasil", "História", 120, 0.8, 600),
-        QuizResult("Universo Marvel", "Cinema", 90, 0.9, 300)
-    )
+    val userHistory = mutableStateListOf<QuizResult>()
 
-    val rankingList = mutableStateListOf(
-        RankingUser(1, "João", 90),
-        RankingUser(2, "Maria", 85),
-        RankingUser(3, "Pedro", 80)
-    )
+
 
 
 }

@@ -124,12 +124,35 @@ class UserRepository(private val context: Context) {
         }
     }
 
-    suspend fun updateUserScore(uid: String, scoreToAdd: Long){
+
+    suspend fun updateBestScore(uid: String, quizId: String, newScore: Long) {
+        val userDocRef = usersCollection.document(uid)
+
         try {
-            usersCollection.document(uid).update("score",
-                FieldValue.increment(scoreToAdd)).await()
-        } catch (e: Exception){
-            throw Exception("Erro ao atualizar o score: ${e.message}")
+            firestore.runTransaction { transaction ->
+                val snapshot = transaction.get(userDocRef)
+                val user = snapshot.toObject(User::class.java)
+                    ?: throw Exception("Usuário não encontrado")
+
+                val oldBestScore = user.bestScores[quizId] ?: 0L
+
+                // Só faz algo se a nova pontuação for maior que a antiga
+                if (newScore > oldBestScore) {
+                    // 1. Calcula a diferença a ser adicionada na pontuação total
+                    val scoreDifference = newScore - oldBestScore
+
+                    // 2. Cria o novo mapa de melhores pontuações
+                    val newBestScores = user.bestScores.toMutableMap()
+                    newBestScores[quizId] = newScore
+
+                    // 3. Na transação, atualiza o mapa e incrementa a pontuação total
+                    transaction.update(userDocRef, "bestScores", newBestScores)
+                    transaction.update(userDocRef, "score", FieldValue.increment(scoreDifference))
+                }
+                // Se a pontuação não for maior, a transação termina sem fazer nada.
+            }.await()
+        } catch (e: Exception) {
+            throw Exception("Erro ao atualizar o melhor score: ${e.message}")
         }
     }
 

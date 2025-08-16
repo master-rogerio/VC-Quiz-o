@@ -36,6 +36,7 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
@@ -78,6 +79,10 @@ fun HomeScreen(
     val coroutineScope = rememberCoroutineScope()
     val rankingList by rankingViewModel.rankingList.collectAsState()
     val currentUserUid = Firebase.auth.currentUser?.uid
+
+    LaunchedEffect(Unit) {
+        rankingViewModel.refreshRanking()
+    }
 
     Column(
         modifier = Modifier
@@ -177,7 +182,18 @@ fun HomeScreen(
                         }
                     }
                 }
-                1 -> LazyColumn(
+                1 -> if(MockData.userHistory.isEmpty()){
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ){
+                        Text(
+                            "Seu histórico de quizzes aparecerá aqui.",
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                } else {
+                    LazyColumn(
                     contentPadding = PaddingValues(vertical = 16.dp),
                     verticalArrangement = Arrangement.Top
 
@@ -196,7 +212,19 @@ fun HomeScreen(
                         }
                     }
                 }
-                2 -> LazyColumn(
+                }
+                2 -> if(rankingList.isEmpty()){
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ){
+                        Text("O ranking está vazio. Jogue um quiz para aparecer aqui!",
+                            textAlign = TextAlign.Center
+                        )
+                    }
+
+                } else {
+                    LazyColumn(
                     contentPadding = PaddingValues(vertical = 16.dp),
                     verticalArrangement = Arrangement.Top,
                 )
@@ -238,26 +266,26 @@ fun HomeScreen(
                     items(
                         rankingList.size
                     ) { index ->
-                    val user = rankingList[index]
-                    val displayName = if(!user.name.isNullOrBlank()) {
-                        user.name
-                    }else{
-                        user.email.substringBefore('@').replaceFirstChar {
-                            it.uppercase()
+                        val user = rankingList[index]
+                        val displayName = if (!user.name.isNullOrBlank()) {
+                            user.name
+                        } else {
+                            user.email.substringBefore('@').replaceFirstChar {
+                                it.uppercase()
+                            }
                         }
+
+                        val isCurrentUser = (user.uid == currentUserUid)
+
+                        RankingItem(
+                            user = RankingUser(
+                                rank = index + 1,
+                                name = displayName,
+                                score = user.score.toInt(),
+                            ),
+                            isCurrentUser = isCurrentUser
+                        )
                     }
-
-                    val isCurrentUser = (user.uid == currentUserUid)
-
-                    RankingItem(
-                        user = RankingUser(
-                        rank = index + 1,
-                        name = displayName,
-                        score = user.score.toInt(),
-                    ),
-                        isCurrentUser = isCurrentUser
-                    )
-
                 }
 
                 }

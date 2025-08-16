@@ -37,7 +37,9 @@ enum class AnswerState { CORRECT, INCORRECT, NEUTRAL }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun QuizScreen(navController: NavController, quizId: String) {
+fun QuizScreen(navController: NavController,
+               quizId: String,
+               userRepository: UserRepository = UserRepository(LocalContext.current)) {
     // FUTURAMENTE: Usar o quizId para buscar o quiz do banco de dados
     val quiz = MockData.techQuiz // Por enquanto, usamos dados fixos
 
@@ -234,12 +236,6 @@ fun QuizScreen(navController: NavController, quizId: String) {
                         val timeTaken = totalTime - timeRemaining
                         val user = Firebase.auth.currentUser
 
-                        if(user !=null){
-                            CoroutineScope(Dispatchers.IO).launch {
-                                val userRepository = UserRepository(context)
-                                userRepository.updateUserScore(user.uid, score.toLong())
-                            }
-                        }
 
                         val newResult = QuizResult(
                             quizTitle = quiz.title,
@@ -248,7 +244,27 @@ fun QuizScreen(navController: NavController, quizId: String) {
                             accuracy = accuracy.toDouble(),
                             timeTakenInSeconds = timeTaken
                         )
-                        MockData.userHistory.add(0, newResult)
+
+                        val existingResult = MockData.userHistory.find {
+                            it.quizTitle == newResult.quizTitle
+                        }
+                            if (existingResult == null){
+                            MockData.userHistory.add(0, newResult)
+                            } else {
+                                if (newResult.score > existingResult.score)
+                                {
+                                    val index = MockData.userHistory.indexOf(existingResult)
+                                    MockData.userHistory[index] = newResult
+                                }
+                            }
+
+
+                        if (user != null){
+                            CoroutineScope(Dispatchers.IO).launch {
+                                val userRepository = UserRepository(context)
+                                userRepository.updateBestScore(user.uid, quizId, score.toLong())
+                            }
+                        }
 
                         val timeString = "%02d:%02d".format(timeTaken / 60, timeTaken % 60)
                         navController.navigate("result/$score/$accuracy/$timeString/false") {

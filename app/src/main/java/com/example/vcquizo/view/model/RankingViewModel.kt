@@ -19,6 +19,9 @@ class RankingViewModel(application: Application) : AndroidViewModel(application)
     init {
         fetchRanking()
     }
+    fun refreshRanking(){
+        fetchRanking()
+    }
 
     private fun fetchRanking() {
         viewModelScope.launch{
