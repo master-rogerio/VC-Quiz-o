@@ -13,6 +13,7 @@ roomCompiler = "2.7.2"
 roomRuntimeAndroid = "2.7.2"
 firebaseFirestoreKtx = "26.0.0"
 coroutines = "1.7.3"
+firebaseDatabase = "22.0.0"
 
 [libraries]
 # Android Core
@@ -42,6 +43,7 @@ androidx-room-common-jvm = { group = "androidx.room", name = "room-common-jvm", 
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
 androidx-room-runtime-android = { group = "androidx.room", name = "room-runtime-android", version.ref = "roomRuntimeAndroid" }
 firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx"}
+firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

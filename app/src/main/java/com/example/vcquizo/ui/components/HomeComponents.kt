@@ -30,9 +30,10 @@ import com.example.vcquizo.ui.util.QuizInfo
 import com.example.vcquizo.ui.util.QuizResult
 import com.example.vcquizo.ui.util.RankingUser
 import java.nio.file.WatchEvent
+import com.example.vcquizo.ui.util.QuizUI
 
 @Composable
-fun QuizCard(quiz: QuizInfo) {
+fun QuizCard(quiz: QuizUI) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -82,7 +83,7 @@ fun QuizCard(quiz: QuizInfo) {
                      )
                      Spacer(modifier = Modifier.width(4.dp))
                      Text(
-                         text = "${quiz.questionCount} questões",
+                         text = "${quiz.questions.size} questões",
                          style = MaterialTheme.typography.bodyMedium,
                          fontWeight = FontWeight.Normal
                      )

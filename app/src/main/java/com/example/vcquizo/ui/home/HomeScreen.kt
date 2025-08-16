@@ -58,6 +58,8 @@ import com.example.vcquizo.ui.util.RankingUser
 import com.example.vcquizo.view.model.AuthViewModel
 import com.example.vcquizo.view.model.RankingViewModel
 import kotlinx.coroutines.launch
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.vcquizo.view.model.QuizViewModel // <-- 1. IMPORTE O NOVO VIEWMODEL
 
 
 
@@ -69,12 +71,14 @@ fun HomeScreen(
     navController: NavController,
     authViewModel: AuthViewModel,
     rankingViewModel: RankingViewModel = viewModel(),
+    quizViewModel: QuizViewModel = viewModel(), // <-- 2. INSTANCIE O QUIZVIEWMODEL
     userRepository: UserRepository
 ) {
     val tabTitles = listOf("Quizzes", "Histórico", "Ranking")
     val pagerState = rememberPagerState(pageCount = {tabTitles.size})
     val coroutineScope = rememberCoroutineScope()
     val rankingList by rankingViewModel.rankingList.collectAsState()
+    val quizzesMap by quizViewModel.quizzesMap.collectAsState() // <-- 3. OBSERVE O MAPA DE QUIZZES
 
     Column(
         modifier = Modifier
@@ -161,9 +165,9 @@ fun HomeScreen(
                     contentPadding = PaddingValues(vertical = 16.dp)
                 )
                 {
-                    items(MockData.availableQuizzes){ quiz ->
+                    items(quizzesMap.entries.toList()){ (quizId, quiz) ->
                         Box(modifier = Modifier.clickable {
-                            navController.navigate("quiz/${quiz.id}")
+                            navController.navigate("quiz/$quizId") // Navega com o ID (ex: "q1")
                         }) {
                             QuizCard(quiz = quiz)
                         }

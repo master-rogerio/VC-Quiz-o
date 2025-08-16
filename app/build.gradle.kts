@@ -73,13 +73,16 @@ dependencies {
     //implementation(libs.androidx.room.common.jvm)
     implementation(libs.androidx.room.compiler)
     implementation(libs.androidx.room.runtime.android)
+    implementation(libs.firebase.database)
     //implementation(libs.firebase.firestore.ktx)
     debugImplementation("androidx.compose.ui:ui-tooling")
 
     // Firebase
     implementation(platform(libs.firebase.bom))
     implementation("com.google.firebase:firebase-auth-ktx")
-   // implementation ("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.firebase:firebase-database-ktx") // A que adicionamos para o Realtime DB
+    implementation("com.google.firebase:firebase-ktx")
+    // implementation ("com.google.firebase:firebase-firestore-ktx")
 
     //implementation(platform(libs.firebase.bom))
     implementation(libs.bundles.firebase)
