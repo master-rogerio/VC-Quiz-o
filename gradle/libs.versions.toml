@@ -32,6 +32,7 @@ androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtim
 
 # Firebase (só o BOM é necessário aqui, ele gere as versões)
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+# firebase-ktx = { group = "com.google.firebase", name = "firebase-ktx" }
 
 # Test
 junit = { group = "junit", name = "junit", version = "4.13.2" }
