@@ -30,6 +30,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.vcquizo.ui.util.QuizUI
+import com.example.vcquizo.view.model.QuizViewModel
 
 
 // Um enum para controlar o estado da resposta (Certo, Errado ou Neutro)
@@ -39,11 +42,22 @@ enum class AnswerState { CORRECT, INCORRECT, NEUTRAL }
 @Composable
 fun QuizScreen(navController: NavController,
                quizId: String,
-               userRepository: UserRepository = UserRepository(LocalContext.current)) {
-    // FUTURAMENTE: Usar o quizId para buscar o quiz do banco de dados
-    val quiz = MockData.techQuiz // Por enquanto, usamos dados fixos
+               userRepository: UserRepository = UserRepository(LocalContext.current),
+               quizViewModel: QuizViewModel = viewModel()) {
+
+    val quizzesMap by quizViewModel.quizzesMap.collectAsState()
+    val quiz = quizzesMap[quizId] // Busca o quiz específico usando o ID da navegação
 
     val context = LocalContext.current
+
+    if (quiz == null) {
+        // Mostra uma tela de carregamento ou uma mensagem
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            CircularProgressIndicator()
+        }
+        return // Sai da função até que o quiz seja encontrado
+    }
+
 
     var currentQuestionIndex by remember { mutableStateOf(0) }
     var selectedOptionIndex by remember { mutableStateOf<Int?>(null) }

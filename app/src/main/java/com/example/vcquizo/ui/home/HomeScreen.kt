@@ -42,7 +42,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -60,10 +59,11 @@ import com.example.vcquizo.ui.util.MockData
 import com.example.vcquizo.ui.util.RankingUser
 import com.example.vcquizo.view.model.AuthViewModel
 import com.example.vcquizo.view.model.RankingViewModel
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
-
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.vcquizo.view.model.QuizViewModel // <-- 1. IMPORTE O NOVO VIEWMODEL
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -72,12 +72,15 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
     authViewModel: AuthViewModel,
-    rankingViewModel: RankingViewModel = viewModel()
+    rankingViewModel: RankingViewModel = viewModel(),
+    quizViewModel: QuizViewModel = viewModel(), // <-- 2. INSTANCIE O QUIZVIEWMODEL
+    userRepository: UserRepository
 ) {
     val tabTitles = listOf("Quizzes", "Histórico", "Ranking")
     val pagerState = rememberPagerState(pageCount = {tabTitles.size})
     val coroutineScope = rememberCoroutineScope()
     val rankingList by rankingViewModel.rankingList.collectAsState()
+    val quizzesMap by quizViewModel.quizzesMap.collectAsState() // <-- 3. OBSERVE O MAPA DE QUIZZES
     val currentUserUid = Firebase.auth.currentUser?.uid
 
     LaunchedEffect(Unit) {
@@ -174,9 +177,9 @@ fun HomeScreen(
                     verticalArrangement = Arrangement.Top
                 )
                 {
-                    items(MockData.availableQuizzes){ quiz ->
+                    items(quizzesMap.entries.toList()){ (quizId, quiz) ->
                         Box(modifier = Modifier.clickable {
-                            navController.navigate("quiz/${quiz.id}")
+                            navController.navigate("quiz/$quizId") // Navega com o ID (ex: "q1")
                         }) {
                             QuizCard(quiz = quiz)
                         }
@@ -298,16 +301,3 @@ fun HomeScreen(
     }
 }
 
-
-//@Preview
-//@Composable
-//fun HomeScreenPreview() {
-//    VCQuizoTheme {
-//        HomeScreen(
-//            modifier = Modifier,
-//            navController = NavController(LocalContext.current),
-//            authViewModel = AuthViewModel()
-//        )
-//    }
-//
-//}

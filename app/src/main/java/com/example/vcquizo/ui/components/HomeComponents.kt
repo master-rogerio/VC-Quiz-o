@@ -1,6 +1,5 @@
 package com.example.vcquizo.ui.components
 
-import android.graphics.Paint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +18,7 @@ import androidx.compose.material.icons.outlined.Timer
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -26,16 +26,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.vcquizo.ui.util.QuizInfo
 import com.example.vcquizo.ui.util.QuizResult
+import com.example.vcquizo.ui.util.QuizUI
 import com.example.vcquizo.ui.util.RankingUser
-import java.nio.file.WatchEvent
+
 
 @Composable
-fun QuizCard(quiz: QuizInfo) {
+fun QuizCard(quiz: QuizUI) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -85,7 +84,7 @@ fun QuizCard(quiz: QuizInfo) {
                      )
                      Spacer(modifier = Modifier.width(4.dp))
                      Text(
-                         text = "${quiz.questionCount} questões",
+                         text = "${quiz.questions.size} questões",
                          style = MaterialTheme.typography.bodyMedium,
                          fontWeight = FontWeight.Normal
                      )
@@ -129,7 +128,7 @@ fun HistoryCard(result : QuizResult) {
         elevation = CardDefaults.cardElevation(4.dp)
     ){
         Column(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(16.dp)
         ){
             Text(
                 text = result.quizTitle,
@@ -141,7 +140,7 @@ fun HistoryCard(result : QuizResult) {
                 text = result.category,
                 style = MaterialTheme.typography.bodySmall
             )
-            Divider(modifier = Modifier.padding(vertical = 4.dp),
+            HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp),
                 color = MaterialTheme.colorScheme.inversePrimary,
                 )
 
@@ -215,8 +214,8 @@ fun RankingItem(user: RankingUser, isCurrentUser: Boolean = false) {
             }
         ),
         elevation = CardDefaults.cardElevation(4.dp)
-    ) {
-
+    )
+    {
         Row(
             modifier = Modifier
                 .fillMaxWidth()

@@ -38,7 +38,7 @@ fun MyAppNavigation(modifier: Modifier, authViewModel: AuthViewModel, userReposi
         }
 
         composable("home") {
-            HomeScreen(navController = navController, authViewModel = authViewModel)
+            HomeScreen(navController = navController, authViewModel = authViewModel, userRepository = userRepository)
         }
 
 
@@ -61,8 +61,6 @@ fun MyAppNavigation(modifier: Modifier, authViewModel: AuthViewModel, userReposi
         // Rota para a tela de quiz, esperando um 'quizId' como argumento
         composable("quiz/{quizId}") { backStackEntry ->
             val quizId = backStackEntry.arguments?.getString("quizId")
-            // FUTURAMENTE: Usar o quizId para buscar o quiz do banco de dados.
-            // Por enquanto, usamos o MockData.
             if (quizId != null) {
                 QuizScreen(navController = navController, quizId = quizId)
             }
