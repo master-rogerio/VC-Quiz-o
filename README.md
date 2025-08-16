@@ -23,7 +23,8 @@ Esse é o repositório para o quarto trabalho da discilpina Programação para D
 * [Diagrama de Arquitetura do Sistema](#-diagrama-de-arquitetura-do-sistema)
 * [Sobre o Aplicativo](#-sobre-o-aplicativo)
 * [Funcionalidades](#-funcionalidades)
-* [Tecnologias Utilizadas](#-tecnologias-utilizadas)
+* [Tecnologias Utilizadas](#%EF%B8%8F-tecnologias-utilizadas)
+
 
 
 
