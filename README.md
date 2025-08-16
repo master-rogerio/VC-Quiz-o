@@ -56,7 +56,7 @@ graph TD
     REPO --> FS
     VM --> AUTH
 ```
-[🧾 Indice](#-indice)
+[🧾 Indice](#-%C3%ADndice)
 <br><br>
 
 ## 📖 Sobre o Aplicativo
