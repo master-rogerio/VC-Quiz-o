@@ -3,16 +3,16 @@ package com.example.vcquizo.ui.util
 import androidx.compose.runtime.mutableStateListOf
 
 data class QuestionUI(
-        val text: String,
-        val options: List<String>,
-        val correctOptionIndex: Int
-        )
+    val text: String = "", // Adicione = ""
+    val options: List<String> = emptyList(), // Adicione = emptyList()
+    val correctOptionIndex: Int = 0 // Adicione = 0
+)
 
 data class QuizUI(
-    val title: String,
-    val category: String,
-    val questions: List<QuestionUI>,
-    val timeLimitMinutes: Int
+    val title: String = "", // Adicione = ""
+    val category: String = "", // Adicione = ""
+    val questions: List<QuestionUI> = emptyList(), // Adicione = emptyList()
+    val timeLimitMinutes: Int = 0 // Adicione = 0
 )
 
 data class QuizInfo(

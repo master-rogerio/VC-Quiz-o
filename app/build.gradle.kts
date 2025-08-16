@@ -76,6 +76,7 @@ dependencies {
 
     // Firebase (as versões serão geridas pelo BOM)
     implementation(platform(libs.firebase.bom))
+    // implementation("com.google.firebase:firebase-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")      // Para autenticação
     implementation("com.google.firebase:firebase-database-ktx")  // Para os Quizzes
     implementation("com.google.firebase:firebase-firestore-ktx") // Para o Ranking e Utilizadores
