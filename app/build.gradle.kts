@@ -70,22 +70,15 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.runtime.livedata)
-    //implementation(libs.androidx.room.common.jvm)
     implementation(libs.androidx.room.compiler)
     implementation(libs.androidx.room.runtime.android)
-    implementation(libs.firebase.database)
-    //implementation(libs.firebase.firestore.ktx)
     debugImplementation("androidx.compose.ui:ui-tooling")
 
-    // Firebase
+    // Firebase (as versões serão geridas pelo BOM)
     implementation(platform(libs.firebase.bom))
-    implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.firebase:firebase-database-ktx") // A que adicionamos para o Realtime DB
-    implementation("com.google.firebase:firebase-ktx")
-    // implementation ("com.google.firebase:firebase-firestore-ktx")
-
-    //implementation(platform(libs.firebase.bom))
-    implementation(libs.bundles.firebase)
+    implementation("com.google.firebase:firebase-auth-ktx")      // Para autenticação
+    implementation("com.google.firebase:firebase-database-ktx")  // Para os Quizzes
+    implementation("com.google.firebase:firebase-firestore-ktx") // Para o Ranking e Utilizadores
 
     // DataStore (Preferences)
     implementation ("androidx.datastore:datastore-preferences:1.1.0")
@@ -110,5 +103,4 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:2.7.2") {
         exclude(group = "com.intellij", module = "annotations")
     }
-
 }

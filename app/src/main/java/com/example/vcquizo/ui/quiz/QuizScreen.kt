@@ -57,7 +57,6 @@ fun QuizScreen(navController: NavController,
         return // Sai da função até que o quiz seja encontrado
     }
 
-//    var currentQuestionIndex by remember { mutableStateOf(0) }
 
     var currentQuestionIndex by remember { mutableStateOf(0) }
     var selectedOptionIndex by remember { mutableStateOf<Int?>(null) }

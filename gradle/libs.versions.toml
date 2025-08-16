@@ -1,19 +1,17 @@
 [versions]
-agp = "8.4.1"  # Voltei para versão estável
-kotlin = "2.1.10"  # Versão estável "1.9.22"   "2.1.10"
+agp = "8.4.1"
+kotlin = "2.1.10"
 coreKtx = "1.12.0"
 lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.8.2"
-composeBom = "2024.02.01"  # Versão estável
-navigationCompose = "2.7.7"  # Versão comprovadamente estável
-firebaseBom = "32.7.0"  # Usando BOM para garantir compatibilidade
+composeBom = "2024.02.01"
+navigationCompose = "2.7.7"
+firebaseBom = "32.7.0"
 materialIconsExtended = "1.6.8"
 roomCommonJvm = "2.7.2"
 roomCompiler = "2.7.2"
 roomRuntimeAndroid = "2.7.2"
-firebaseFirestoreKtx = "26.0.0"
 coroutines = "1.7.3"
-firebaseDatabase = "22.0.0"
 
 [libraries]
 # Android Core
@@ -32,7 +30,7 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version = "1.6.3" }
 
-# Firebase (usando BOM)
+# Firebase (só o BOM é necessário aqui, ele gere as versões)
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
 
 # Test
@@ -42,18 +40,9 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-room-common-jvm = { group = "androidx.room", name = "room-common-jvm", version.ref = "roomCommonJvm" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
 androidx-room-runtime-android = { group = "androidx.room", name = "room-runtime-android", version.ref = "roomRuntimeAndroid" }
-firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx"}
-firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 google-gms-google-services = { id = "com.google.gms.google-services", version = "4.4.1" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-
-
-
-
-[bundles]
-firebase = ["firebase-firestore-ktx"]
-
