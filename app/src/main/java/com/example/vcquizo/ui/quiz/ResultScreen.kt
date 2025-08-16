@@ -26,31 +26,74 @@ fun ResultScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text("Quiz Finalizado!", style = MaterialTheme.typography.headlineLarge)
-        Spacer(modifier = Modifier.height(32.dp))
-
-        // Cards com os resultados
-        Card(modifier = Modifier.fillMaxWidth()) {
-            Column(modifier = Modifier.padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Sua Pontuação", style = MaterialTheme.typography.titleMedium)
-                Text("$score", fontSize = 48.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
-                Divider(modifier = Modifier.padding(vertical = 8.dp))
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("Acertos")
-                        Text("${(accuracy * 100).toInt()}%", fontWeight = FontWeight.SemiBold)
-                    }
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("Tempo")
-                        Text(timeTaken, fontWeight = FontWeight.SemiBold)
+        if (!cameFromHistory) {
+            Text("Quiz finalizado!",
+                style = MaterialTheme.typography.headlineLarge,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary)
+            Spacer(modifier = Modifier.height(32.dp))
+            // Cards com os resultados
+            Card(modifier = Modifier.fillMaxWidth(),
+                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text("Sua Pontuação", style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        "$score",
+                        fontSize = 48.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Divider(modifier = Modifier.padding(vertical = 8.dp))
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text("Acertos")
+                            Text("${(accuracy * 100).toInt()}%", fontWeight = FontWeight.SemiBold)
+                        }
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text("Tempo")
+                            Text(timeTaken, fontWeight = FontWeight.SemiBold)
+                        }
                     }
                 }
             }
-        }
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Button(onClick = { navController.popBackStack() }) {
+                Text("Finalizar")
+            }
+
+        } else {
+            Card(modifier = Modifier.fillMaxWidth()) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text("Sua Pontuação", style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        "$score",
+                        fontSize = 48.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Divider(modifier = Modifier.padding(vertical = 8.dp))
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text("Acertos")
+                            Text("${(accuracy * 100).toInt()}%", fontWeight = FontWeight.SemiBold)
+                        }
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text("Tempo")
+                            Text(timeTaken, fontWeight = FontWeight.SemiBold)
+                        }
+                    }
+                }
+            }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        if (cameFromHistory) {
             Button(onClick = {
                 // FUTURAMENTE: Navegar para o quiz correspondente
                 navController.navigate("quiz/mock"){
@@ -63,10 +106,7 @@ fun ResultScreen(
             OutlinedButton(onClick = { navController.popBackStack() }) {
                 Text("Voltar ao Histórico")
             }
-        } else {
-            Button(onClick = { navController.popBackStack() }) {
-                Text("Finalizar")
-            }
+
         }
     }
-}
+        }
