@@ -120,6 +120,11 @@ Além disso, o aplicativo foi projetado para funcionar online e offline, utiliza
   </tr>
 </table>
 
+<br>
+
+Veja o Video com o funcionamento do Aplicativo V.C. Quiz-O
+
+https://github.com/user-attachments/assets/804d8859-75a2-4de2-8cf2-08170c7a1281
 
 
 
