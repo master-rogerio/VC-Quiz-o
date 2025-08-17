@@ -24,6 +24,7 @@ Esse é o repositório para o quarto trabalho da discilpina Programação para D
 
 * [ 📊 Diagrama de Arquitetura do Sistema](#-diagrama-de-arquitetura-do-sistema)
 * [ 📖 Sobre o Aplicativo](#-sobre-o-aplicativo)
+* [ 📖 Capturas de Tela](#-capturas-de-tela)
 * [ ✅ Funcionalidades](#-funcionalidades)
 * [ 🛠️ Tecnologias Utilizadas](#%EF%B8%8F-tecnologias-utilizadas)
 * [ 🚀 Como Executar o Projeto](#-como-executar-o-projeto)
@@ -77,6 +78,60 @@ Além disso, o aplicativo foi projetado para funcionar online e offline, utiliza
 [Retornar ao 🧾Indice](#-%C3%ADndice)
 
 <br>
+
+## 📸 Capturas de Tela
+
+<table>
+  <tr>
+    <td style="text-align: center;">
+      <img src="extras/LoginScreen.png" alt="Login" width="100"/><br/>
+      <span style="text-align: center;">Tela de Login</span>
+    </td>
+    <td style="text-align: center;">
+      <img src="extras/SignUpScreen.png" alt="Signup" width="100"/><br/>
+      <span style="text-align: center;">Tela de Registro</span>
+    </td>
+   <td style="text-align: center;">
+      <img src="extras/HomeScreen1.png" alt="Signup" width="100"/><br/>
+      <span style="text-align: center;">Seleção de Quiz</span>
+    </td>
+   <td style="text-align: center;">
+      <img src="extras/QuizScreen1.png" alt="Signup" width="140"/><br/>
+      <span style="text-align: center;">Quiz</span
+    </td>
+   <td style="text-align: center;">
+      <img src="extras/QuizScreen2.png" alt="Signup" width="135"/><br/>
+      <span style="text-align: center;">Quiz Acerto</span>
+    </td>
+   <td style="text-align: center;">
+      <img src="extras/QuizScreen3.png" alt="Signup" width="140"/><br/>
+      <span style="text-align: center;">Quiz Erro</span>
+    </td>
+    <td style="text-align: center;">
+      <img src="extras/HomeScreen2.png" alt="Signup" width="100"/><br/>
+      <span style="text-align: center;">Histório de Quizzes</span>
+    </td>
+    <td style="text-align: center;">
+      <img src="extras/HomeScreen3.png" alt="Signup" width="100"/><br/>
+      <span style="text-align: center;">Rank de Pontuação</span>
+    </td>
+  </tr>
+</table>
+
+
+<!--
+<img src="extras/LoginScreen.png" alt="Login" width="100"/>
+<img src="extras/SignUpScreen.png" alt="Signup" width="100"/>
+-->
+
+
+<br>
+
+[Retornar ao 🧾Indice](#-%C3%ADndice)
+
+<br>
+
+
 
 ## ✅ Funcionalidades
 
