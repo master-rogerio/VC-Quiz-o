@@ -5,7 +5,7 @@
 # Trabalho da Disciplina Programação para Dispositivos Móveis
  
 Esse é o repositório para o quarto trabalho da discilpina Programação para Dispositivos Móveis do curso de Sistemas de Informação da Universidade Federal de Uberlândia. 
-###### Por Luiz Fellipe Silva Lima, Eduardo Antônio da Silva e Rogério Anastácio
+###### Por Luiz Fellipe Silva Lima, Eduardo Antonio da Silva e Rogério Anastácio
 
 <br>
 <div align="center">
@@ -199,8 +199,9 @@ Para compilar e executar este projeto localmente, siga os passos abaixo:
 
 1.  **Clone o Repositório**
     ```bash
-    git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
-    ```
+    git clone https://github.com/master-rogerio/VC-Quiz-o.git
+    
+     ```
 
 2.  **Configuração do Firebase**
     * Vá até o [console do Firebase](https://console.firebase.google.com/).
@@ -214,6 +215,19 @@ Para compilar e executar este projeto localmente, siga os passos abaixo:
     * Abra o projeto no Android Studio.
     * O Gradle irá sincronizar e baixar todas as dependências necessárias.
     * Execute o aplicativo em um emulador ou dispositivo físico.
+
+## OU Instalando o nosso APK no seu smartphone
+
+Para instalar, siga os passos:
+
+1. **Baixe o APK**
+➡️ Disponível na página da [documentação de lançamento](https://github.com/master-rogerio/VC-Quiz-o/releases/tag/v1).
+
+2. **Transfira para seu smartphone**
+*Pode ser via cabo USB, bluetooth, e-mail ou diretamente do navegador do seu smartphone Android.*
+
+3. **Instale o APK**
+*Se certifique de que a opção de instalar de fontes desconhecidas esteja ativada.*
 
 <br>
 
@@ -235,6 +249,6 @@ Para compilar e executar este projeto localmente, siga os passos abaixo:
 <!--
 Desenvolvido por:
 -Luiz Fellipe Silva Lima
--Eduardo Antônio da Silva 
+-Eduardo Antonio da Silva 
 -Rogério Anastácio
 -->
