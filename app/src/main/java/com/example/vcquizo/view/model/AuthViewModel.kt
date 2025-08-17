@@ -1,5 +1,6 @@
 package com.example.vcquizo.view.model
 
+import com.google.firebase.ktx.Firebase
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -12,7 +13,6 @@ import com.example.vcquizo.util.ConnectivityUtil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 //import kotlin.coroutines.jvm.internal.CompletedContinuation.context

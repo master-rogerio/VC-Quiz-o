@@ -10,7 +10,9 @@ data class User(
     val uid: String = "",
     val email: String = "",
     val name: String? = null,
+    val score: Long = 0L,
+    val bestScores: Map<String, Long> = emptyMap()
 ) {
     // Construtor vazio necessário para o Firestore
-    constructor() : this("", "", null)
+    constructor() : this("", "", null, 0L, emptyMap())
 }

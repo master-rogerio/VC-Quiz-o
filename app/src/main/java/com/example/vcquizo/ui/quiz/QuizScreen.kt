@@ -13,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,9 +21,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.vcquizo.data.UserRepository
 import com.example.vcquizo.ui.util.MockData
 import com.example.vcquizo.ui.util.QuizResult
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.vcquizo.ui.util.QuizUI
+import com.example.vcquizo.view.model.HistoryViewModel
+import com.example.vcquizo.view.model.QuizViewModel
 
 
 // Um enum para controlar o estado da resposta (Certo, Errado ou Neutro)
@@ -30,9 +41,40 @@ enum class AnswerState { CORRECT, INCORRECT, NEUTRAL }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun QuizScreen(navController: NavController, quizId: String) {
-    // FUTURAMENTE: Usar o quizId para buscar o quiz do banco de dados
-    val quiz = MockData.techQuiz // Por enquanto, usamos dados fixos
+fun QuizScreen(navController: NavController,
+               quizId: String,
+               userRepository: UserRepository = UserRepository(LocalContext.current),
+               quizViewModel: QuizViewModel = viewModel(),
+) {
+
+    val quizzesMap by quizViewModel.quizzesMap.collectAsState()
+    val quiz = quizzesMap[quizId] // Busca o quiz específico usando o ID da navegação
+
+    val context = LocalContext.current
+
+    // Debug: Verificar carregamento do quiz
+    android.util.Log.d("QuizScreen", "QuizId recebido: '$quizId'")
+    android.util.Log.d("QuizScreen", "Quizzes disponíveis: ${quizzesMap.keys}")
+    android.util.Log.d("QuizScreen", "Quiz encontrado: ${quiz != null}")
+
+    if (quiz == null) {
+        // Mostra uma tela de carregamento ou uma mensagem
+        android.util.Log.d("QuizScreen", "Quiz não encontrado, mostrando loading...")
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                CircularProgressIndicator()
+                Spacer(modifier = Modifier.height(16.dp))
+                Text("Carregando quiz...")
+                if (quizzesMap.isEmpty()) {
+                    Text("Carregando lista de quizzes...", style = MaterialTheme.typography.bodySmall)
+                } else {
+                    Text("Quiz '$quizId' não encontrado", style = MaterialTheme.typography.bodySmall)
+                }
+            }
+        }
+        return // Sai da função até que o quiz seja encontrado
+    }
+
 
     var currentQuestionIndex by remember { mutableStateOf(0) }
     var selectedOptionIndex by remember { mutableStateOf<Int?>(null) }
@@ -121,10 +163,10 @@ fun QuizScreen(navController: NavController, quizId: String) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)
+                    .weight(2f)
                     .background(
                         color = MaterialTheme.colorScheme.primary,
-                        shape = RoundedCornerShape(5.dp)
+                        shape = RoundedCornerShape(16.dp)
                     ),
                 contentAlignment = Alignment.Center
             ) {
@@ -198,7 +240,8 @@ fun QuizScreen(navController: NavController, quizId: String) {
                     ),
                     elevation = CardDefaults.cardElevation(
                         defaultElevation = 4.dp
-                    )
+                    ),
+                    shape = RoundedCornerShape(16.dp)
                 ) {
                     Text(
                         text = optionText,
@@ -223,15 +266,36 @@ fun QuizScreen(navController: NavController, quizId: String) {
                         val score = correctAnswersCount * 10
                         val accuracy = correctAnswersCount.toFloat() / quiz.questions.size
                         val timeTaken = totalTime - timeRemaining
+                        val user = Firebase.auth.currentUser
+
 
                         val newResult = QuizResult(
+                            quizId = quizId,
                             quizTitle = quiz.title,
-                            category = quiz.title,
+                            category = quiz.category,
                             score = score,
                             accuracy = accuracy.toDouble(),
-                            timeTakeMinutes = timeTaken / 60
+                            timeTakenInSeconds = timeTaken
                         )
-                        MockData.userHistory.add(0, newResult)
+
+
+//
+                        if (user != null){
+                            android.util.Log.d("QuizScreen", "Usuário autenticado: ${user.uid}")
+                            android.util.Log.d("QuizScreen", "Salvando resultado: ${newResult.quizTitle}, Score: ${newResult.score}")
+                            CoroutineScope(Dispatchers.IO).launch {
+                                try {
+                                    val userRepository = UserRepository(context)
+                                    userRepository.updateBestScore(user.uid, quizId, score.toLong())
+                                    userRepository.saveQuizResult(user.uid, newResult)
+                                    android.util.Log.d("QuizScreen", "Resultado salvo com sucesso!")
+                                } catch (e: Exception) {
+                                    android.util.Log.e("QuizScreen", "Erro ao salvar resultado: ${e.message}")
+                                }
+                            }
+                        } else {
+                            android.util.Log.w("QuizScreen", "Usuário não autenticado, não salvando resultado")
+                        }
 
                         val timeString = "%02d:%02d".format(timeTaken / 60, timeTaken % 60)
                         navController.navigate("result/$score/$accuracy/$timeString/false") {

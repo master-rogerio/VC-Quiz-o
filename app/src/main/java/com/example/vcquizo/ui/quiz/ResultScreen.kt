@@ -17,44 +17,100 @@ fun ResultScreen(
     score: Int,
     accuracy: Float,
     timeTaken: String,
-    // FUTURAMENTE: Receber um parâmetro para saber se veio do histórico
-    // e mostrar/esconder o botão "Refazer Quiz"
-    cameFromHistory: Boolean = false
+    cameFromHistory: Boolean = false,
+    quizId: String? = null
 ) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text("Quiz Finalizado!", style = MaterialTheme.typography.headlineLarge)
-        Spacer(modifier = Modifier.height(32.dp))
-
-        // Cards com os resultados
-        Card(modifier = Modifier.fillMaxWidth()) {
-            Column(modifier = Modifier.padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Sua Pontuação", style = MaterialTheme.typography.titleMedium)
-                Text("$score", fontSize = 48.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
-                Divider(modifier = Modifier.padding(vertical = 8.dp))
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("Acertos")
-                        Text("${(accuracy * 100).toInt()}%", fontWeight = FontWeight.SemiBold)
-                    }
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("Tempo")
-                        Text(timeTaken, fontWeight = FontWeight.SemiBold)
+        if (!cameFromHistory) {
+            Text("Quiz finalizado!",
+                style = MaterialTheme.typography.headlineLarge,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary)
+            Spacer(modifier = Modifier.height(32.dp))
+            // Cards com os resultados
+            Card(modifier = Modifier.fillMaxWidth(),
+                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text("Sua Pontuação", style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        "$score",
+                        fontSize = 48.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Divider(modifier = Modifier.padding(vertical = 8.dp))
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text("Acertos")
+                            Text("${(accuracy * 100).toInt()}%", fontWeight = FontWeight.SemiBold)
+                        }
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text("Tempo")
+                            Text(timeTaken, fontWeight = FontWeight.SemiBold)
+                        }
                     }
                 }
             }
-        }
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Button(onClick = { navController.popBackStack() }) {
+                Text("Finalizar")
+            }
+
+        } else {
+            Card(modifier = Modifier.fillMaxWidth()) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text("Sua Pontuação", style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        "$score",
+                        fontSize = 48.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Divider(modifier = Modifier.padding(vertical = 8.dp))
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text("Acertos")
+                            Text("${(accuracy * 100).toInt()}%", fontWeight = FontWeight.SemiBold)
+                        }
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text("Tempo")
+                            Text(timeTaken, fontWeight = FontWeight.SemiBold)
+                        }
+                    }
+                }
+            }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        if (cameFromHistory) {
             Button(onClick = {
-                // FUTURAMENTE: Navegar para o quiz correspondente
-                navController.navigate("quiz/mock"){
-                    popUpTo("home")
+                // Debug: Verificar o valor do quizId
+                android.util.Log.d("ResultScreen", "QuizId recebido: '$quizId'")
+                android.util.Log.d("ResultScreen", "QuizId é null? ${quizId == null}")
+                android.util.Log.d("ResultScreen", "QuizId é blank? ${quizId?.isBlank()}")
+                
+                // Navegar para o quiz correspondente
+                if (quizId != null && quizId.isNotBlank()) {
+                    android.util.Log.d("ResultScreen", "Navegando para quiz: $quizId")
+                    navController.navigate("quiz/$quizId"){
+                        popUpTo("home")
+                    }
+                } else {
+                    android.util.Log.d("ResultScreen", "QuizId inválido, voltando para home")
+                    // Se não há quizId, volta para home
+                    navController.navigate("home") {
+                        popUpTo("home") { inclusive = true }
+                    }
                 }
             }) {
                 Text("Refazer Quiz")
@@ -63,10 +119,7 @@ fun ResultScreen(
             OutlinedButton(onClick = { navController.popBackStack() }) {
                 Text("Voltar ao Histórico")
             }
-        } else {
-            Button(onClick = { navController.popBackStack() }) {
-                Text("Finalizar")
-            }
+
         }
     }
-}
+        }

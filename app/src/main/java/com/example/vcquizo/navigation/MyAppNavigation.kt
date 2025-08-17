@@ -10,7 +10,6 @@ import androidx.navigation.navArgument
 import com.example.vcquizo.ui.home.HomeScreen
 import com.example.vcquizo.ui.quiz.QuizScreen
 import com.example.vcquizo.ui.result.ResultScreen
-// Remova as referências às pages de Login e Signup por enquanto
 import com.example.vcquizo.pages.LoginPage
 import com.example.vcquizo.pages.SignupPage
 import com.example.vcquizo.view.model.AuthViewModel
@@ -19,8 +18,6 @@ import com.example.vcquizo.view.model.AuthViewModel
 fun MyAppNavigation(modifier: Modifier, authViewModel: AuthViewModel) { // O ViewModel será usado no futuro
     val navController = rememberNavController()
 
-    // FUTURAMENTE: Trocar startDestination para "login" ou uma tela de "splash"
-    // que verificará o authState.
     NavHost(
         navController = navController,
         startDestination = "login"
@@ -59,26 +56,33 @@ fun MyAppNavigation(modifier: Modifier, authViewModel: AuthViewModel) { // O Vie
         // Rota para a tela de quiz, esperando um 'quizId' como argumento
         composable("quiz/{quizId}") { backStackEntry ->
             val quizId = backStackEntry.arguments?.getString("quizId")
-            // FUTURAMENTE: Usar o quizId para buscar o quiz do banco de dados.
-            // Por enquanto, usamos o MockData.
             if (quizId != null) {
                 QuizScreen(navController = navController, quizId = quizId)
             }
         }
 
         // Rota para a tela de resultado
-        composable("result/{score}/{accuracy}/{time}/{cameFromHistory}") { backStackEntry ->
+        composable("result/{score}/{accuracy}/{time}/{cameFromHistory}?quizId={quizId}",
+            arguments = listOf(
+                navArgument("quizId") { 
+                    nullable = true 
+                    defaultValue = null
+                }
+            )
+        ) { backStackEntry ->
             val score = backStackEntry.arguments?.getString("score")?.toInt() ?: 0
             val accuracy = backStackEntry.arguments?.getString("accuracy")?.toFloat() ?: 0f
             val time = backStackEntry.arguments?.getString("time") ?: "00:00"
             val cameFromHistory = backStackEntry.arguments?.getString("cameFromHistory")?.toBoolean() ?: false
+            val quizId = backStackEntry.arguments?.getString("quizId")
 
             ResultScreen(
                 navController = navController,
                 score = score,
                 accuracy = accuracy,
                 timeTaken = time,
-                cameFromHistory = cameFromHistory
+                cameFromHistory = cameFromHistory,
+                quizId = quizId
             )
         }
     }
