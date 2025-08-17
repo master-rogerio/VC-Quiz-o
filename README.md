@@ -84,28 +84,28 @@ Além disso, o aplicativo foi projetado para funcionar online e offline, utiliza
 <table style="width: 100%; table-layout: fixed; text-align: center;">
   <tr>
     <td style="width: 12.5%; padding: 10px;">
-      <img src="extras/LoginScreen.png" alt="Login" style="width: 120px; height: 220px; object-fit: cover;"><br/>
+      <img src="extras/LoginScreen.png" alt="Login" style="width: 108px; height: 240px; object-fit: cover;"><br/>
     </td>
     <td style="width: 12.5%; padding: 10px;">
-      <img src="extras/SignUpScreen.png" alt="Registro" style="width: 120px; height: 220px; object-fit: cover;"><br/>
+      <img src="extras/SignUpScreen.png" alt="Registro" style="width: 108px; height: 240px; object-fit: cover;"><br/>
     </td>
     <td style="width: 12.5%; padding: 10px;">
-      <img src="extras/HomeScreen1.png" alt="Sel. Quiz" style="width: 120px; height: 220px; object-fit: cover;"><br/>
+      <img src="extras/HomeScreen1.png" alt="Sel. Quiz" style="width: 108 px; height: 240px; object-fit: cover;"><br/>
     </td>
     <td style="width: 12.5%; padding: 10px;">
-      <img src="extras/QuizScreen1.png" alt="Quiz" style="width: 120px; height: 220px; object-fit: cover;"><br/>
+      <img src="extras/QuizScreen1.png" alt="Quiz" style="width: 108px; height: 240px; object-fit: cover;"><br/>
     </td>
     <td style="width: 12.5%; padding: 10px;">
-      <img src="extras/QuizScreen2.png" alt="Quiz Acerto" style="width: 120px; height: 220px; object-fit: cover;"><br/>
+      <img src="extras/QuizScreen2.png" alt="Quiz Acerto" style="width: 108px; height: 240px; object-fit: cover;"><br/>
     </td>
     <td style="width: 12.5%; padding: 10px;">
-      <img src="extras/QuizScreen3.png" alt="Quiz Erro" style="width: 120px; height: 220px; object-fit: cover;"><br/>
+      <img src="extras/QuizScreen3.png" alt="Quiz Erro" style="width: 108px; height: 240px; object-fit: cover;"><br/>
     </td>
     <td style="width: 12.5%; padding: 10px;">
-      <img src="extras/HomeScreen2.png" alt="Hist. de Quizzes" style="width: 120px; height: 220px; object-fit: cover;"><br/>
+      <img src="extras/HomeScreen2.png" alt="Hist. de Quizzes" style="width: 108px; height: 240px; object-fit: cover;"><br/>
     </td>
     <td style="width: 12.5%; padding: 10px;">
-      <img src="extras/HomeScreen3.png" alt="Rank Pontuação" style="width: 120px; height: 220px; object-fit: cover;"><br/>
+      <img src="extras/HomeScreen3.png" alt="Rank Pontuação" style="width: 108px; height: 240px; object-fit: cover;"><br/>
     </td>
   </tr>
   <tr>
