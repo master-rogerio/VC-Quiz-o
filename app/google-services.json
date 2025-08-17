@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "23404428177",
+    "firebase_url": "https://v-c-quiz-o-default-rtdb.firebaseio.com",
+    "project_id": "v-c-quiz-o",
+    "storage_bucket": "v-c-quiz-o.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23404428177:android:1acfeaf19dd7f217f23830",
+        "android_client_info": {
+          "package_name": "com.example.vcquizo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8xxH9cw9DL1yjWy-LIzAaM2EIFGZ3slw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
