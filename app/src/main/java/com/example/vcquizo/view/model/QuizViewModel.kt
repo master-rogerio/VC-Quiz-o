@@ -14,26 +14,29 @@ import kotlinx.coroutines.launch
 class QuizViewModel : ViewModel() {
 
     private val database = FirebaseDatabase.getInstance()
+    private val quizzesRef = database.getReference("quizzes") // Cria uma referência reutilizável
+
 
     // Este StateFlow guardará um mapa de IDs (q1, q2) para os objetos QuizUI
     private val _quizzesMap = MutableStateFlow<Map<String, QuizUI>>(emptyMap())
     val quizzesMap: StateFlow<Map<String, QuizUI>> = _quizzesMap.asStateFlow()
 
     init {
+        quizzesRef.keepSynced(true)
+
         // Busca os dados assim que o ViewModel for criado.
         getDataFromFirebase()
     }
 
     private fun getDataFromFirebase() {
         viewModelScope.launch {
-            database.getReference("quizzes")
+            quizzesRef // Usa a referência já criada
                 .get()
                 .addOnSuccessListener { dataSnapshot ->
                     if (dataSnapshot.exists()) {
                         val quizMap = mutableMapOf<String, QuizUI>()
                         for (snapshot in dataSnapshot.children) {
                             val quiz = snapshot.getValue(QuizUI::class.java)
-                            // A chave do snapshot (ex: "q1") é o nosso ID
                             if (quiz != null && snapshot.key != null) {
                                 quizMap[snapshot.key!!] = quiz
                             }
