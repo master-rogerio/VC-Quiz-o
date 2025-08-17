@@ -174,7 +174,7 @@ class UserRepository(private val context: Context) {
     suspend fun saveQuizResult(uid: String, result: QuizResult){
         val historyDocRef = usersCollection.document(uid)
             .collection("quizHistory")
-            .document(result.quizTitle)
+            .document(result.quizId)
 
         try {
             android.util.Log.d("UserRepository", "Salvando resultado: ${result.quizTitle}, Score: ${result.score}")

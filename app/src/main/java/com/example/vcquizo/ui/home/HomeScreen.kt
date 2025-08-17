@@ -214,7 +214,17 @@ fun HomeScreen(
                             val minutes =  result.timeTakenInSeconds / 60
                             val seconds = result.timeTakenInSeconds % 60
                             val time = "%02d:%02d".format(minutes, seconds)
-                            navController.navigate("result/$score/$accuracy/$time/true")
+                            
+                            // Debug: Verificar dados do resultado
+                            android.util.Log.d("HomeScreen", "Clicando no histórico:")
+                            android.util.Log.d("HomeScreen", "QuizId: '${result.quizId}'")
+                            android.util.Log.d("HomeScreen", "QuizTitle: '${result.quizTitle}'")
+                            android.util.Log.d("HomeScreen", "Score: $score")
+                            
+                            val navigationRoute = "result/$score/$accuracy/$time/true?quizId=${result.quizId}"
+                            android.util.Log.d("HomeScreen", "Navegando para: $navigationRoute")
+                            
+                            navController.navigate(navigationRoute)
                         }) {
                             HistoryCard(result = result)
                         }

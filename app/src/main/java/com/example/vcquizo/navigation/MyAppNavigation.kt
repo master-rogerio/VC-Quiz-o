@@ -62,18 +62,27 @@ fun MyAppNavigation(modifier: Modifier, authViewModel: AuthViewModel) { // O Vie
         }
 
         // Rota para a tela de resultado
-        composable("result/{score}/{accuracy}/{time}/{cameFromHistory}") { backStackEntry ->
+        composable("result/{score}/{accuracy}/{time}/{cameFromHistory}?quizId={quizId}",
+            arguments = listOf(
+                navArgument("quizId") { 
+                    nullable = true 
+                    defaultValue = null
+                }
+            )
+        ) { backStackEntry ->
             val score = backStackEntry.arguments?.getString("score")?.toInt() ?: 0
             val accuracy = backStackEntry.arguments?.getString("accuracy")?.toFloat() ?: 0f
             val time = backStackEntry.arguments?.getString("time") ?: "00:00"
             val cameFromHistory = backStackEntry.arguments?.getString("cameFromHistory")?.toBoolean() ?: false
+            val quizId = backStackEntry.arguments?.getString("quizId")
 
             ResultScreen(
                 navController = navController,
                 score = score,
                 accuracy = accuracy,
                 timeTaken = time,
-                cameFromHistory = cameFromHistory
+                cameFromHistory = cameFromHistory,
+                quizId = quizId
             )
         }
     }

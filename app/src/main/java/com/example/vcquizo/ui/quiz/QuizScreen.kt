@@ -52,10 +52,25 @@ fun QuizScreen(navController: NavController,
 
     val context = LocalContext.current
 
+    // Debug: Verificar carregamento do quiz
+    android.util.Log.d("QuizScreen", "QuizId recebido: '$quizId'")
+    android.util.Log.d("QuizScreen", "Quizzes disponíveis: ${quizzesMap.keys}")
+    android.util.Log.d("QuizScreen", "Quiz encontrado: ${quiz != null}")
+
     if (quiz == null) {
         // Mostra uma tela de carregamento ou uma mensagem
+        android.util.Log.d("QuizScreen", "Quiz não encontrado, mostrando loading...")
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            CircularProgressIndicator()
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                CircularProgressIndicator()
+                Spacer(modifier = Modifier.height(16.dp))
+                Text("Carregando quiz...")
+                if (quizzesMap.isEmpty()) {
+                    Text("Carregando lista de quizzes...", style = MaterialTheme.typography.bodySmall)
+                } else {
+                    Text("Quiz '$quizId' não encontrado", style = MaterialTheme.typography.bodySmall)
+                }
+            }
         }
         return // Sai da função até que o quiz seja encontrado
     }
@@ -255,8 +270,9 @@ fun QuizScreen(navController: NavController,
 
 
                         val newResult = QuizResult(
+                            quizId = quizId,
                             quizTitle = quiz.title,
-                            category = quiz.title,
+                            category = quiz.category,
                             score = score,
                             accuracy = accuracy.toDouble(),
                             timeTakenInSeconds = timeTaken

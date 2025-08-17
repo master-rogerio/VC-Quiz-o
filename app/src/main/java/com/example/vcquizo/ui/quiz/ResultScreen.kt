@@ -17,9 +17,8 @@ fun ResultScreen(
     score: Int,
     accuracy: Float,
     timeTaken: String,
-    // FUTURAMENTE: Receber um parâmetro para saber se veio do histórico
-    // e mostrar/esconder o botão "Refazer Quiz"
-    cameFromHistory: Boolean = false
+    cameFromHistory: Boolean = false,
+    quizId: String? = null
 ) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
@@ -95,9 +94,23 @@ fun ResultScreen(
         Spacer(modifier = Modifier.height(24.dp))
 
             Button(onClick = {
-                // FUTURAMENTE: Navegar para o quiz correspondente
-                navController.navigate("quiz/mock"){
-                    popUpTo("home")
+                // Debug: Verificar o valor do quizId
+                android.util.Log.d("ResultScreen", "QuizId recebido: '$quizId'")
+                android.util.Log.d("ResultScreen", "QuizId é null? ${quizId == null}")
+                android.util.Log.d("ResultScreen", "QuizId é blank? ${quizId?.isBlank()}")
+                
+                // Navegar para o quiz correspondente
+                if (quizId != null && quizId.isNotBlank()) {
+                    android.util.Log.d("ResultScreen", "Navegando para quiz: $quizId")
+                    navController.navigate("quiz/$quizId"){
+                        popUpTo("home")
+                    }
+                } else {
+                    android.util.Log.d("ResultScreen", "QuizId inválido, voltando para home")
+                    // Se não há quizId, volta para home
+                    navController.navigate("home") {
+                        popUpTo("home") { inclusive = true }
+                    }
                 }
             }) {
                 Text("Refazer Quiz")

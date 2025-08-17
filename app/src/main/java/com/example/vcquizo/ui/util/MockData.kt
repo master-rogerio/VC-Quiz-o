@@ -16,6 +16,7 @@ data class QuizUI(
 )
 
 data class QuizResult(
+    val quizId: String = "",
     val quizTitle: String = "",
     val category: String = "",
     val score: Int = 0,
@@ -23,7 +24,7 @@ data class QuizResult(
     val timeTakenInSeconds: Int = 0
 ) {
     // Construtor vazio necessário para o Firestore
-    constructor() : this("", "", 0, 0.0, 0)
+    constructor() : this("", "", "", 0, 0.0, 0)
 }
 
 data class RankingUser(
