@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.vcquizo.domain.model.User
+import com.example.vcquizo.ui.util.QuizResult
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
@@ -166,6 +167,59 @@ class UserRepository(private val context: Context) {
                 .await()
             snapshot.toObjects(User::class.java)
         } catch (e: Exception){
+            emptyList()
+        }
+    }
+
+    suspend fun saveQuizResult(uid: String, result: QuizResult){
+        val historyDocRef = usersCollection.document(uid)
+            .collection("quizHistory")
+            .document(result.quizTitle)
+
+        try {
+            android.util.Log.d("UserRepository", "Salvando resultado: ${result.quizTitle}, Score: ${result.score}")
+            firestore.runTransaction { transaction ->
+                val snapshot = transaction.get(historyDocRef)
+
+                if(snapshot.exists()){
+                    val existingScore = snapshot.getLong("score") ?: 0L
+                    android.util.Log.d("UserRepository", "Documento existe. Score existente: $existingScore, Novo score: ${result.score}")
+                    if(result.score > existingScore){
+                        transaction.set(historyDocRef, result)
+                        android.util.Log.d("UserRepository", "Score atualizado!")
+                    } else {
+                        android.util.Log.d("UserRepository", "Score não foi melhor, não atualizando")
+                    }
+                } else {
+                    transaction.set(historyDocRef, result)
+                    android.util.Log.d("UserRepository", "Novo documento criado!")
+                }
+            }.await()
+            android.util.Log.d("UserRepository", "Resultado salvo com sucesso!")
+
+        } catch (e: Exception){
+            android.util.Log.e("UserRepository", "Erro ao salvar resultado: ${e.message}")
+            throw Exception("Erro ao salvar o resultado do quiz: ${e.message}")
+        }
+    }
+
+    suspend fun getQuizHistory(uid: String): List<QuizResult> {
+        return try {
+            android.util.Log.d("UserRepository", "Buscando histórico para usuário: $uid")
+            val snapshot = usersCollection
+                .document(uid)
+                .collection("quizHistory")
+                .orderBy("score", Query.Direction.DESCENDING)
+                .get()
+                .await()
+            val results = snapshot.toObjects(QuizResult::class.java)
+            android.util.Log.d("UserRepository", "Histórico encontrado: ${results.size} itens")
+            results.forEach { result ->
+                android.util.Log.d("UserRepository", "Item: ${result.quizTitle}, Score: ${result.score}")
+            }
+            results
+        } catch (e: Exception) {
+            android.util.Log.e("UserRepository", "Erro ao buscar histórico: ${e.message}")
             emptyList()
         }
     }

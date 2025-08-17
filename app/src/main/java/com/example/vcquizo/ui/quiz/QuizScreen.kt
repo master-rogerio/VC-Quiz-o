@@ -32,6 +32,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.vcquizo.ui.util.QuizUI
+import com.example.vcquizo.view.model.HistoryViewModel
 import com.example.vcquizo.view.model.QuizViewModel
 
 
@@ -43,7 +44,8 @@ enum class AnswerState { CORRECT, INCORRECT, NEUTRAL }
 fun QuizScreen(navController: NavController,
                quizId: String,
                userRepository: UserRepository = UserRepository(LocalContext.current),
-               quizViewModel: QuizViewModel = viewModel()) {
+               quizViewModel: QuizViewModel = viewModel(),
+) {
 
     val quizzesMap by quizViewModel.quizzesMap.collectAsState()
     val quiz = quizzesMap[quizId] // Busca o quiz específico usando o ID da navegação
@@ -146,10 +148,10 @@ fun QuizScreen(navController: NavController,
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)
+                    .weight(2f)
                     .background(
                         color = MaterialTheme.colorScheme.primary,
-                        shape = RoundedCornerShape(5.dp)
+                        shape = RoundedCornerShape(16.dp)
                     ),
                 contentAlignment = Alignment.Center
             ) {
@@ -223,7 +225,8 @@ fun QuizScreen(navController: NavController,
                     ),
                     elevation = CardDefaults.cardElevation(
                         defaultElevation = 4.dp
-                    )
+                    ),
+                    shape = RoundedCornerShape(16.dp)
                 ) {
                     Text(
                         text = optionText,
@@ -259,25 +262,23 @@ fun QuizScreen(navController: NavController,
                             timeTakenInSeconds = timeTaken
                         )
 
-                        val existingResult = MockData.userHistory.find {
-                            it.quizTitle == newResult.quizTitle
-                        }
-                            if (existingResult == null){
-                            MockData.userHistory.add(0, newResult)
-                            } else {
-                                if (newResult.score > existingResult.score)
-                                {
-                                    val index = MockData.userHistory.indexOf(existingResult)
-                                    MockData.userHistory[index] = newResult
+
+//
+                        if (user != null){
+                            android.util.Log.d("QuizScreen", "Usuário autenticado: ${user.uid}")
+                            android.util.Log.d("QuizScreen", "Salvando resultado: ${newResult.quizTitle}, Score: ${newResult.score}")
+                            CoroutineScope(Dispatchers.IO).launch {
+                                try {
+                                    val userRepository = UserRepository(context)
+                                    userRepository.updateBestScore(user.uid, quizId, score.toLong())
+                                    userRepository.saveQuizResult(user.uid, newResult)
+                                    android.util.Log.d("QuizScreen", "Resultado salvo com sucesso!")
+                                } catch (e: Exception) {
+                                    android.util.Log.e("QuizScreen", "Erro ao salvar resultado: ${e.message}")
                                 }
                             }
-
-
-                        if (user != null){
-                            CoroutineScope(Dispatchers.IO).launch {
-                                val userRepository = UserRepository(context)
-                                userRepository.updateBestScore(user.uid, quizId, score.toLong())
-                            }
+                        } else {
+                            android.util.Log.w("QuizScreen", "Usuário não autenticado, não salvando resultado")
                         }
 
                         val timeString = "%02d:%02d".format(timeTaken / 60, timeTaken % 60)

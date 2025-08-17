@@ -16,12 +16,15 @@ data class QuizUI(
 )
 
 data class QuizResult(
-    val quizTitle: String,
-    val category: String,
-    val score: Int,
-    val accuracy: Double,
-    val timeTakenInSeconds: Int
-)
+    val quizTitle: String = "",
+    val category: String = "",
+    val score: Int = 0,
+    val accuracy: Double = 0.0,
+    val timeTakenInSeconds: Int = 0
+) {
+    // Construtor vazio necessário para o Firestore
+    constructor() : this("", "", 0, 0.0, 0)
+}
 
 data class RankingUser(
     val rank: Int,
@@ -31,7 +34,6 @@ data class RankingUser(
 
 object MockData{
 
-    val userHistory = mutableStateListOf<QuizResult>()
 
 
 }

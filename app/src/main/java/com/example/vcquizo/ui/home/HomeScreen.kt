@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,14 +19,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Logout
-import androidx.compose.material.icons.filled.Lightbulb
-import androidx.compose.material.icons.filled.LightbulbCircle
-import androidx.compose.material.icons.outlined.Lightbulb
 import androidx.compose.material.icons.rounded.Lightbulb
-import androidx.compose.material.icons.twotone.Lightbulb
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -42,25 +36,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.vcquizo.data.UserRepository
 import com.example.vcquizo.ui.components.HistoryCard
 import com.example.vcquizo.ui.components.QuizCard
 import com.example.vcquizo.ui.components.RankingItem
-import com.example.vcquizo.ui.theme.VCQuizoTheme
 import com.example.vcquizo.ui.util.MockData
 import com.example.vcquizo.ui.util.RankingUser
 import com.example.vcquizo.view.model.AuthViewModel
 import com.example.vcquizo.view.model.RankingViewModel
 import kotlinx.coroutines.launch
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.vcquizo.view.model.HistoryViewModel
 import com.example.vcquizo.view.model.QuizViewModel // <-- 1. IMPORTE O NOVO VIEWMODEL
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -73,19 +63,34 @@ fun HomeScreen(
     navController: NavController,
     authViewModel: AuthViewModel,
     rankingViewModel: RankingViewModel = viewModel(),
-    quizViewModel: QuizViewModel = viewModel(), // <-- 2. INSTANCIE O QUIZVIEWMODEL
-    userRepository: UserRepository
+    quizViewModel: QuizViewModel = viewModel(),
+    historyViewModel: HistoryViewModel = viewModel()// <-- 2. INSTANCIE O QUIZVIEWMODEL
 ) {
     val tabTitles = listOf("Quizzes", "Histórico", "Ranking")
     val pagerState = rememberPagerState(pageCount = {tabTitles.size})
     val coroutineScope = rememberCoroutineScope()
-    val rankingList by rankingViewModel.rankingList.collectAsState()
-    val quizzesMap by quizViewModel.quizzesMap.collectAsState() // <-- 3. OBSERVE O MAPA DE QUIZZES
-    val currentUserUid = Firebase.auth.currentUser?.uid
 
-    LaunchedEffect(Unit) {
+    val quizzesMap by quizViewModel.quizzesMap.collectAsState() // <-- 3. OBSERVE O MAPA DE QUIZZES
+
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
+
+
+
+    LaunchedEffect(currentRoute == "home") {
         rankingViewModel.refreshRanking()
+        historyViewModel.loadHistory()
     }
+    
+    // Recarrega o histórico sempre que voltar para a tela home
+    LaunchedEffect(Unit) {
+        historyViewModel.loadHistory()
+    }
+
+    val historyList by historyViewModel.historyList.collectAsState()
+    val rankingList by rankingViewModel.rankingList.collectAsState()
+    val currentUserUid = Firebase.auth.currentUser?.uid
 
     Column(
         modifier = Modifier
@@ -185,7 +190,7 @@ fun HomeScreen(
                         }
                     }
                 }
-                1 -> if(MockData.userHistory.isEmpty()){
+                1 -> if(historyList.isEmpty()){
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
@@ -201,7 +206,7 @@ fun HomeScreen(
                     verticalArrangement = Arrangement.Top
 
                 ){
-                    items(MockData.userHistory){ result ->
+                    items(historyList){ result ->
                         Box(modifier = Modifier.clickable {
                             // Navega para o resultado, passando dados de exemplo
                             val accuracy = result.accuracy

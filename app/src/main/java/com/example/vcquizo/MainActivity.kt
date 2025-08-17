@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             VCQuizoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MyAppNavigation(modifier = Modifier.padding(innerPadding), authViewModel = authViewModel, userRepository = userRepository)
+                    MyAppNavigation(modifier = Modifier.padding(innerPadding), authViewModel = authViewModel)
                 }
             }
         }
