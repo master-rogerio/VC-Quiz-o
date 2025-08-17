@@ -24,7 +24,7 @@ Esse é o repositório para o quarto trabalho da discilpina Programação para D
 
 * [ 📊 Diagrama de Arquitetura do Sistema](#-diagrama-de-arquitetura-do-sistema)
 * [ 📖 Sobre o Aplicativo](#-sobre-o-aplicativo)
-* [ 📖 Capturas de Tela](#-capturas-de-tela)
+* [ 📸 Capturas de Tela](#-capturas-de-tela)
 * [ ✅ Funcionalidades](#-funcionalidades)
 * [ 🛠️ Tecnologias Utilizadas](#%EF%B8%8F-tecnologias-utilizadas)
 * [ 🚀 Como Executar o Projeto](#-como-executar-o-projeto)
