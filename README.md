@@ -24,7 +24,7 @@ Esse é o repositório para o quarto trabalho da discilpina Programação para D
 
 * [ 📊 Diagrama de Arquitetura do Sistema](#-diagrama-de-arquitetura-do-sistema)
 * [ 📖 Sobre o Aplicativo](#-sobre-o-aplicativo)
-* [ 📸 Capturas de Tela](#-capturas-de-tela)
+* [ 📸 Capturas de Tela do Aplicativo V.C. Quiz-O](#-capturas-de-tela-do-aplicativo-vc-quiz-o) 
 * [ ✅ Funcionalidades](#-funcionalidades)
 * [ 🛠️ Tecnologias Utilizadas](#%EF%B8%8F-tecnologias-utilizadas)
 * [ 🚀 Como Executar o Projeto](#-como-executar-o-projeto)
@@ -79,44 +79,48 @@ Além disso, o aplicativo foi projetado para funcionar online e offline, utiliza
 
 <br>
 
-## 📸 Capturas de Tela
+## 📸 Capturas de Tela do Aplicativo V.C. Quiz-O
 
-<table>
+<table style="width: 100%; table-layout: fixed; text-align: center;">
   <tr>
-    <td style="text-align: center;">
-      <img src="extras/LoginScreen.png" alt="Login" width="100"/><br/>
-      <span style="text-align: center;">Tela de Login</span>
+    <td style="width: 12.5%; padding: 10px;">
+      <img src="extras/LoginScreen.png" alt="Login" style="width: 120px; height: 220px; object-fit: cover;"><br/>
     </td>
-    <td style="text-align: center;">
-      <img src="extras/SignUpScreen.png" alt="Signup" width="100"/><br/>
-      <span style="text-align: center;">Tela de Registro</span>
+    <td style="width: 12.5%; padding: 10px;">
+      <img src="extras/SignUpScreen.png" alt="Registro" style="width: 120px; height: 220px; object-fit: cover;"><br/>
     </td>
-   <td style="text-align: center;">
-      <img src="extras/HomeScreen1.png" alt="Signup" width="100"/><br/>
-      <span style="text-align: center;">Seleção de Quiz</span>
+    <td style="width: 12.5%; padding: 10px;">
+      <img src="extras/HomeScreen1.png" alt="Sel. Quiz" style="width: 120px; height: 220px; object-fit: cover;"><br/>
     </td>
-   <td style="text-align: center;">
-      <img src="extras/QuizScreen1.png" alt="Signup" width="140"/><br/>
-      <span style="text-align: center;">Quiz</span
+    <td style="width: 12.5%; padding: 10px;">
+      <img src="extras/QuizScreen1.png" alt="Quiz" style="width: 120px; height: 220px; object-fit: cover;"><br/>
     </td>
-   <td style="text-align: center;">
-      <img src="extras/QuizScreen2.png" alt="Signup" width="135"/><br/>
-      <span style="text-align: center;">Quiz Acerto</span>
+    <td style="width: 12.5%; padding: 10px;">
+      <img src="extras/QuizScreen2.png" alt="Quiz Acerto" style="width: 120px; height: 220px; object-fit: cover;"><br/>
     </td>
-   <td style="text-align: center;">
-      <img src="extras/QuizScreen3.png" alt="Signup" width="140"/><br/>
-      <span style="text-align: center;">Quiz Erro</span>
+    <td style="width: 12.5%; padding: 10px;">
+      <img src="extras/QuizScreen3.png" alt="Quiz Erro" style="width: 120px; height: 220px; object-fit: cover;"><br/>
     </td>
-    <td style="text-align: center;">
-      <img src="extras/HomeScreen2.png" alt="Signup" width="100"/><br/>
-      <span style="text-align: center;">Histório de Quizzes</span>
+    <td style="width: 12.5%; padding: 10px;">
+      <img src="extras/HomeScreen2.png" alt="Hist. de Quizzes" style="width: 120px; height: 220px; object-fit: cover;"><br/>
     </td>
-    <td style="text-align: center;">
-      <img src="extras/HomeScreen3.png" alt="Signup" width="100"/><br/>
-      <span style="text-align: center;">Rank de Pontuação</span>
+    <td style="width: 12.5%; padding: 10px;">
+      <img src="extras/HomeScreen3.png" alt="Rank Pontuação" style="width: 120px; height: 220px; object-fit: cover;"><br/>
     </td>
   </tr>
+  <tr>
+    <td><strong>Login</strong></td>
+    <td><strong>Registro</strong></td>
+    <td><strong>Sel. Quiz</strong></td>
+    <td><strong>Quiz</strong></td>
+    <td><strong>Quiz Acerto</strong></td>
+    <td><strong>Quiz Erro</strong></td>
+    <td><strong>Hist. de Quizzes</strong></td>
+    <td><strong>Rank Pontuação</strong></td>
+  </tr>
 </table>
+
+
 
 
 <!--
