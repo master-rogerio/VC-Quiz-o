@@ -1,5 +1,4 @@
-// Local: app/src/main/java/com/example/vcquizo/ui/result/ResultScreen.kt
-package com.example.vcquizo.ui.result
+package com.example.vcquizo.ui.quiz
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*

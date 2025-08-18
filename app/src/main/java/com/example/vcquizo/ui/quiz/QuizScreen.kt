@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.vcquizo.data.UserRepository
-import com.example.vcquizo.ui.util.MockData
 import com.example.vcquizo.ui.util.QuizResult
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -31,8 +30,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.vcquizo.ui.util.QuizUI
-import com.example.vcquizo.view.model.HistoryViewModel
 import com.example.vcquizo.view.model.QuizViewModel
 
 

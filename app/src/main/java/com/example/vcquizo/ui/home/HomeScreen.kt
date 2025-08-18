@@ -1,6 +1,6 @@
 package com.example.vcquizo.ui.home
 
-import androidx.compose.foundation.ExperimentalFoundationApi
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -44,7 +44,6 @@ import androidx.navigation.NavController
 import com.example.vcquizo.ui.components.HistoryCard
 import com.example.vcquizo.ui.components.QuizCard
 import com.example.vcquizo.ui.components.RankingItem
-import com.example.vcquizo.ui.util.MockData
 import com.example.vcquizo.ui.util.RankingUser
 import com.example.vcquizo.view.model.AuthViewModel
 import com.example.vcquizo.view.model.RankingViewModel
@@ -56,7 +55,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
 
-@OptIn(ExperimentalFoundationApi::class)
+
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,

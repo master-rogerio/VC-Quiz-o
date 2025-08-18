@@ -9,7 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.vcquizo.ui.home.HomeScreen
 import com.example.vcquizo.ui.quiz.QuizScreen
-import com.example.vcquizo.ui.result.ResultScreen
+import com.example.vcquizo.ui.quiz.ResultScreen
 import com.example.vcquizo.pages.LoginPage
 import com.example.vcquizo.pages.SignupPage
 import com.example.vcquizo.view.model.AuthViewModel

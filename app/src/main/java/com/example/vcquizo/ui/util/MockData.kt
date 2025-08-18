@@ -1,6 +1,5 @@
 package com.example.vcquizo.ui.util
 
-import androidx.compose.runtime.mutableStateListOf
 
 data class QuestionUI(
     val text: String = "", // Adicione = ""
