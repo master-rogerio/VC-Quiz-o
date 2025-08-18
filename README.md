@@ -107,6 +107,7 @@ Além disso, o aplicativo foi projetado para funcionar online e offline, utiliza
     <td style="width: 12.5%; padding: 10px;">
       <img src="extras/HomeScreen3.png" alt="Rank Pontuação" style="width: 108px; height: 240px; object-fit: cover;"><br/>
     </td>
+   
   </tr>
   <tr>
     <td><strong>Login</strong></td>
@@ -117,6 +118,45 @@ Além disso, o aplicativo foi projetado para funcionar online e offline, utiliza
     <td><strong>Quiz Erro</strong></td>
     <td><strong>Hist. de Quizzes</strong></td>
     <td><strong>Rank Pontuação</strong></td>
+  </tr>
+</table>
+
+<table style="width: 100%; table-layout: fixed; text-align: center;">
+  <tr>
+    <td style="width: 12.5%; padding: 10px;">
+      <img src="extras/Dark_Login.png" alt="Login" style="width: 108px; height: 240px; object-fit: cover;"><br/>
+    </td>
+    <td style="width: 12.5%; padding: 10px;">
+      <img src="extras/Dark_SignUp.png" alt="Registro" style="width: 108px; height: 240px; object-fit: cover;"><br/>
+    </td>
+    <td style="width: 12.5%; padding: 10px;">
+      <img src="extras/Dark_HomeScreen1.png" alt="Sel. Quiz" style="width: 108 px; height: 240px; object-fit: cover;"><br/>
+    </td>
+    <td style="width: 12.5%; padding: 10px;">
+      <img src="extras/Dark_QuizScreen1.png" alt="Quiz" style="width: 108px; height: 240px; object-fit: cover;"><br/>
+    </td>
+    <td style="width: 12.5%; padding: 10px;">
+      <img src="extras/Dark_QuizScreen2.png" alt="Quiz Acerto" style="width: 108px; height: 240px; object-fit: cover;"><br/>
+    </td>
+    <td style="width: 12.5%; padding: 10px;">
+      <img src="extras/Dark_QuizScreen3.png" alt="Quiz Erro" style="width: 108px; height: 240px; object-fit: cover;"><br/>
+    </td>
+    <td style="width: 12.5%; padding: 10px;">
+      <img src="extras/Dark_HomeScreen2.png" alt="Hist. de Quizzes" style="width: 108px; height: 240px; object-fit: cover;"><br/>
+    </td>
+    <td style="width: 12.5%; padding: 10px;">
+      <img src="extras/Dark_HomeScreen3.png" alt="Rank Pontuação" style="width: 108px; height: 240px; object-fit: cover;"><br/>
+    </td>
+  </tr>
+  <tr>
+    <td><strong>Login (modo noturno)</strong></td>
+    <td><strong>Registro (modo noturno)</strong></td>
+    <td><strong>Sel. Quiz (modo noturno)</strong></td>
+    <td><strong>Quiz (modo noturno)</strong></td>
+    <td><strong>Quiz Acerto (modo noturno)</strong></td>
+    <td><strong>Quiz Erro (modo noturno)</strong></td>
+    <td><strong>Hist. de Quizzes (modo noturno)</strong></td>
+    <td><strong>Rank Pontuação (modo noturno)</strong></td>
   </tr>
 </table>
 
