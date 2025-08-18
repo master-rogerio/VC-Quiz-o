@@ -91,7 +91,8 @@ fun QuizScreen(navController: NavController,
             // Navega para o resultado quando o tempo acaba
             val accuracy = if (quiz.questions.isNotEmpty()) correctAnswersCount.toFloat() / quiz.questions.size else 0f
             val timeTaken = totalTime - timeRemaining
-            navController.navigate("result/0/${accuracy}/%02d:%02d".format(timeTaken / 60, timeTaken % 60))
+            val timeString = "Tempo Esgotado!"
+            navController.navigate("result/0/$accuracy/$timeString/false")
         }
     }
 
@@ -140,14 +141,18 @@ fun QuizScreen(navController: NavController,
                         tint = MaterialTheme.colorScheme.primary
                     )
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text(text = "%02d:%02d".format(timeRemaining / 60, timeRemaining % 60))
+                    if (timeRemaining == 0) {
+                        Text(color = Color.Red, text = "Tempo Esgotado")
+                    } else {
+                        Text(text = "%02d:%02d".format(timeRemaining / 60, timeRemaining % 60))
+                    }
                 }
             }
 
             Spacer(modifier = Modifier.height(8.dp))
 
             // Barra de progresso baseada nos ACERTOS
-            val progress = correctAnswersCount.toFloat() / quiz.questions.size.toFloat()
+            val progress = correctAnswersCount.toFloat() / (quiz.questions.size.toFloat())
             LinearProgressIndicator(
                 progress = { progress },
                 modifier = Modifier.fillMaxWidth()
@@ -298,6 +303,7 @@ fun QuizScreen(navController: NavController,
                         navController.navigate("result/$score/$accuracy/$timeString/false") {
                             popUpTo("home")
                         }
+
                     }
                 },
                 modifier = Modifier
