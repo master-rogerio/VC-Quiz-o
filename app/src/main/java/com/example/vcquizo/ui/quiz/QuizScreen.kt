@@ -90,9 +90,11 @@ fun QuizScreen(navController: NavController,
         if (timeRemaining == 0) {
             // Navega para o resultado quando o tempo acaba
             val accuracy = if (quiz.questions.isNotEmpty()) correctAnswersCount.toFloat() / quiz.questions.size else 0f
-            val timeTaken = totalTime - timeRemaining
-            val timeString = "Tempo Esgotado!"
-            navController.navigate("result/0/$accuracy/$timeString/false")
+
+
+            navController.navigate("result/0/$accuracy/esgotado/false"){
+                popUpTo("home")
+            }
         }
     }
 
