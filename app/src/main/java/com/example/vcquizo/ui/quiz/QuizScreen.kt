@@ -81,7 +81,7 @@ fun QuizScreen(navController: NavController,
     val totalTime = quiz.timeLimitMinutes * 60
 
     // Efeito para o timer regressivo
-    LaunchedEffect(key1 = Unit) {
+    LaunchedEffect(key1 = currentQuestionIndex) {
         while (timeRemaining > 0 && answerState == AnswerState.NEUTRAL) {
 
             delay(1000L)
